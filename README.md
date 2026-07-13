@@ -140,6 +140,7 @@ Layer 3: Adaptation Governance
 ```text
 .
 ├── index.html
+├── REFERENCES.md
 ├── main.py
 ├── config.py
 ├── data/
@@ -256,21 +257,42 @@ The website now includes a dedicated evidence gallery. These committed files are
   </tbody>
 </table>
 
-## References From Provided Material Only
+## Verified References
 
-This repository does not add online-searched references. The currently available citation cues came from the local Claude/user-provided material and are preserved in [informations/REFERENCE_NOTES.md](informations/REFERENCE_NOTES.md).
+The verified bibliography supplied for this project is now included in [REFERENCES.md](REFERENCES.md), with a mirrored copy in [informations/REFERENCE_NOTES.md](informations/REFERENCE_NOTES.md).
 
-Those notes include:
+The list preserves the supplied status labels:
 
-- Transcend (USENIX '17),
-- INSOMNIA (AISec '21),
-- METANOIA (2024),
-- AutoSHARC (CMES '25),
-- DriftGuard (arXiv '26),
-- ISO/IEC 27001:2022 controls A.5.15, A.8.16, and A.5.36,
-- other local cues related to SHAP-based drift explanation, Zero Trust/XAI/federated learning, and continual threat learning.
+- verified references,
+- arXiv preprints,
+- references that still need manual checking before final paper submission,
+- one excluded original proposal reference documented for traceability.
 
-Exact external URLs were not present in the inspected local material, so they were not invented. Once the verified bibliography is available, the local notes can be replaced with direct DOI, publisher, arXiv, patent, or official standard links.
+Key clickable references include:
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th align="left">Ref</th>
+      <th align="left">Source</th>
+      <th align="left">Role in DriftTrust-Audit</th>
+      <th align="left">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>R1</td><td>NIST SP 800-207</td><td>Zero Trust Architecture foundation.</td><td><a href="https://doi.org/10.6028/NIST.SP.800-207">DOI</a></td></tr>
+    <tr><td>R2</td><td>Zero Trust Architecture survey</td><td>Broad ZTA research landscape.</td><td><a href="https://doi.org/10.1109/ACCESS.2022.3174679">DOI</a></td></tr>
+    <tr><td>R4</td><td>Transcend, USENIX Security 2017</td><td>Security concept-drift detection baseline literature.</td><td><a href="https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/jordaney">USENIX</a></td></tr>
+    <tr><td>R5</td><td>INSOMNIA, AISec 2021</td><td>Concept-drift robustness in intrusion detection.</td><td><a href="https://doi.org/10.1145/3474369.3486864">DOI</a></td></tr>
+    <tr><td>R6</td><td>METANOIA</td><td>Lifelong intrusion detection under concept drift.</td><td><a href="https://arxiv.org/abs/2501.00438">arXiv</a></td></tr>
+    <tr><td>R8</td><td>SHAP foundation paper</td><td>Explainability basis for attribution-driven drift reasoning.</td><td><a href="https://proceedings.neurips.cc/paper_files/paper/2017/file/8a20a8621978632d76c43dfd28b67767-Paper.pdf">Paper</a></td></tr>
+    <tr><td>R11</td><td>DriftGuard</td><td>SHAP attribution shifts for drift root-cause analysis.</td><td><a href="https://arxiv.org/abs/2601.08928">arXiv</a></td></tr>
+    <tr><td>R16</td><td>Continual learning for ZTA patent</td><td>Prior art showing Layer 1+2 alone are not the novelty.</td><td><a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12549572">USPTO PDF</a></td></tr>
+    <tr><td>R17</td><td>ISO/IEC 27001:2022</td><td>Governance basis for AJR policy-control mapping.</td><td><a href="https://www.iso.org/standard/27001">ISO</a></td></tr>
+  </tbody>
+</table>
+
+The project website also includes a clickable reference section for the most important sources. The full list should still be re-checked before final journal submission, especially entries marked "needs verification" or "preprint."
 
 ## Important Research Caveat
 
