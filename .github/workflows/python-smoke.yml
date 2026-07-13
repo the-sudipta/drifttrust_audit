@@ -1,0 +1,38 @@
+name: Python Smoke Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r drifttrust_audit/requirements.txt
+
+      - name: Compile project
+        run: |
+          cd drifttrust_audit
+          python -m compileall .
+
+      - name: Run smoke experiment
+        env:
+          DTA_N_SESSIONS: "1200"
+          DTA_EPOCHS: "6"
+          DTA_INCREMENTAL_EPOCHS: "2"
+        run: |
+          cd drifttrust_audit
+          python main.py
+

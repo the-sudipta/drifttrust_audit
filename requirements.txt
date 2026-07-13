@@ -1,0 +1,14 @@
+numpy
+pandas
+scikit-learn
+scipy
+matplotlib
+seaborn
+tqdm
+joblib
+
+# Optional full-stack dependencies for a PyTorch/SHAP/River variant:
+# torch
+# shap
+# river
+

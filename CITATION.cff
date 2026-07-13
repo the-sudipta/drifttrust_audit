@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use DriftTrust-Audit, please cite this repository."
+title: "DriftTrust-Audit: Audit-Ready Adaptive Zero Trust Access Control Under Concept Drift"
+version: "0.1.0"
+date-released: "2026-07-13"
+authors:
+  - name: "Sudipta"
+    affiliation: "American International University-Bangladesh"
+abstract: "DriftTrust-Audit is a research prototype for audit-ready adaptive Zero Trust access control. It introduces Adaptation Justification Records, an Explanation-Consistency Index, and ISO/IEC 27001 policy mapping for concept-drifting trust models."
+keywords:
+  - zero trust architecture
+  - concept drift
+  - information security management
+  - explainable AI
+  - auditability
+  - ISO/IEC 27001
+  - adaptive access control
+license: "MIT"
+repository-code: "https://github.com/the-sudipta/drifttrust_audit"

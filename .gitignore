@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local configuration
+.env
+.env.*
+
+# Generated experiment outputs
+data/*.csv
+audit_logs/*.json
+results/*.json
+results/*.png
+saved_models/*.joblib
+
+# Private/raw exported conversation artifact
+CLAUDE Chat.htm
+docs/CLAUDE Chat.htm
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
