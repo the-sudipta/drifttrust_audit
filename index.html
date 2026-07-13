@@ -468,6 +468,179 @@
       transition: width 0.7s ease;
     }
 
+    .evidence-shell {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .figure-list { display: grid; gap: 0.8rem; }
+
+    .figure-card {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 0.8rem;
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: 0.8rem;
+      align-items: center;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .figure-card:hover, .figure-card.active {
+      transform: translateY(-2px);
+      border-color: var(--teal);
+      box-shadow: 0 10px 26px rgba(25, 47, 56, 0.1);
+    }
+
+    .figure-card img {
+      width: 100%;
+      aspect-ratio: 1.45;
+      object-fit: cover;
+      border-radius: 0.55rem;
+      border: 1px solid var(--line);
+      background: #f7fbfa;
+    }
+
+    .figure-card strong { display: block; }
+    .figure-card span { display: block; color: var(--muted); font-size: 0.86rem; }
+
+    .figure-stage {
+      border: 1px solid var(--line);
+      border-radius: 0.95rem;
+      background: rgba(255, 255, 255, 0.92);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .figure-stage img {
+      width: 100%;
+      display: block;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .figure-copy { padding: 1.1rem; }
+    .figure-copy h3 { margin: 0 0 0.5rem; font-size: 1.35rem; }
+    .figure-copy p { color: var(--muted); margin: 0.55rem 0; }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.95rem;
+    }
+
+    .proof-strip div {
+      border: 1px solid var(--line);
+      border-radius: 0.7rem;
+      padding: 0.8rem;
+      background: #f8fcfb;
+    }
+
+    .proof-strip span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .artifact-panel {
+      margin-top: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 0.95rem;
+      background: rgba(255, 255, 255, 0.9);
+      overflow: hidden;
+    }
+
+    .artifact-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem;
+      border-bottom: 1px solid var(--line);
+      background: #f3f8f7;
+    }
+
+    .artifact-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .artifact-tabs button, .ref-card a {
+      border: 1px solid var(--line);
+      border-radius: 0.55rem;
+      background: #fff;
+      padding: 0.55rem 0.7rem;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .artifact-tabs button.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .artifact-body {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 1rem;
+      padding: 1rem;
+      align-items: start;
+    }
+
+    .artifact-summary { color: var(--muted); }
+
+    .artifact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    .artifact-links a {
+      border: 1px solid var(--line);
+      border-radius: 0.55rem;
+      background: #fff;
+      padding: 0.55rem 0.7rem;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .reference-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .ref-card {
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: rgba(255, 255, 255, 0.88);
+      padding: 1rem;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .ref-card p { margin: 0; color: var(--muted); }
+
+    .ref-note {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0.8rem;
+      background: #fff9ed;
+      color: #5f4b2a;
+    }
+
     .ajr-viewer {
       display: grid;
       grid-template-columns: 0.8fr 1.2fr;
@@ -649,14 +822,14 @@
     }
 
     @media (max-width: 980px) {
-      .hero, .metrics, .ajr-viewer, .lab, .lab-output, .trust-meter-layout, .explanation-panel { grid-template-columns: 1fr; }
-      .story-grid, .workflow, .advantage-grid { grid-template-columns: 1fr 1fr; }
+      .hero, .metrics, .ajr-viewer, .lab, .lab-output, .trust-meter-layout, .explanation-panel, .evidence-shell, .artifact-body { grid-template-columns: 1fr; }
+      .story-grid, .workflow, .advantage-grid, .reference-grid { grid-template-columns: 1fr 1fr; }
       .links { display: none; }
       .bar-row { grid-template-columns: 7rem 1fr 3rem; }
     }
 
     @media (max-width: 620px) {
-      .story-grid, .workflow, .metric-list, .mini-grid, .advantage-grid { grid-template-columns: 1fr; }
+      .story-grid, .workflow, .metric-list, .mini-grid, .advantage-grid, .reference-grid, .proof-strip, .figure-card { grid-template-columns: 1fr; }
       .hero { padding-top: 2rem; }
       h1 { font-size: 3.3rem; }
       .risk-row { grid-template-columns: 1fr; }
@@ -673,8 +846,10 @@
       <a href="#gap">Gap</a>
       <a href="#method">Method</a>
       <a href="#results">Results</a>
+      <a href="#evidence">Evidence</a>
       <a href="#audit">AJR</a>
       <a href="#try">Try Yourself</a>
+      <a href="#references">References</a>
     </div>
   </nav>
 
@@ -723,9 +898,9 @@
             </div>
           </div>
           <div class="mini-grid" style="margin-top: 1rem;">
-            <div class="mini"><span>AJRs created</span><strong>18</strong></div>
-            <div class="mini"><span>ECI mean</span><strong>0.91</strong></div>
-            <div class="mini"><span>Policy pass</span><strong>94%</strong></div>
+            <div class="mini"><span>AJRs created</span><strong>14</strong></div>
+            <div class="mini"><span>ECI mean</span><strong>0.92</strong></div>
+            <div class="mini"><span>Policy pass</span><strong>100%</strong></div>
           </div>
         </div>
       </aside>
@@ -786,12 +961,12 @@
 
       <div class="metrics">
         <div class="metric-list">
-          <div class="metric"><strong data-count="18">0</strong><span>Adaptation events</span></div>
+          <div class="metric"><strong data-count="14">0</strong><span>Adaptation events</span></div>
           <div class="metric"><strong data-count="1.00">0</strong><span>AJR completeness</span></div>
-          <div class="metric"><strong data-count="0.94">0</strong><span>Policy conformance</span></div>
-          <div class="metric"><strong data-count="0.91">0</strong><span>Mean ECI</span></div>
-          <div class="metric"><strong data-count="0.76">0</strong><span>F1 score</span></div>
-          <div class="metric"><strong data-count="46.67">0</strong><span>MTTD sessions</span></div>
+          <div class="metric"><strong data-count="1.00">0</strong><span>Policy conformance</span></div>
+          <div class="metric"><strong data-count="0.92">0</strong><span>Mean ECI</span></div>
+          <div class="metric"><strong data-count="0.70">0</strong><span>F1 score</span></div>
+          <div class="metric"><strong data-count="43.33">0</strong><span>MTTD sessions</span></div>
         </div>
         <div class="chart">
           <h3>Baseline comparison: F1 score</h3>
@@ -813,6 +988,49 @@
             <strong>DriftTrust-Audit learns and leaves evidence.</strong>
             <p>AJR + ECI + ISO checks turn adaptation into an auditable governance event, which is the publication novelty.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="section-title">
+        <span class="tag">Figures, tables, and logs</span>
+        <h2>The produced artifacts tell the research story.</h2>
+        <p>
+          These are copied from the local smoke-run outputs so the website can show real generated evidence:
+          figures, metrics tables, novelty flags, and one sample AJR audit log.
+        </p>
+      </div>
+
+      <div class="evidence-shell">
+        <div class="figure-list" id="figureList" aria-label="Generated figure selector"></div>
+        <div class="figure-stage">
+          <img id="figurePreview" src="assets/showcase/trust_scores.png" alt="Selected generated research figure">
+          <div class="figure-copy">
+            <h3 id="figureTitle"></h3>
+            <p id="figureText"></p>
+            <p id="figureMeaning"></p>
+            <div class="proof-strip">
+              <div><span>Research gap</span><strong id="figureGap"></strong></div>
+              <div><span>Novelty signal</span><strong id="figureNovelty"></strong></div>
+              <div><span>Success/advantage</span><strong id="figureSuccess"></strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="artifact-panel">
+        <div class="artifact-head">
+          <strong>Open the generated tables/logs</strong>
+          <div class="artifact-tabs" id="artifactTabs" aria-label="Artifact table selector"></div>
+        </div>
+        <div class="artifact-body">
+          <div class="artifact-summary">
+            <h3 id="artifactTitle"></h3>
+            <p id="artifactSummary"></p>
+            <div class="artifact-links" id="artifactLinks"></div>
+          </div>
+          <pre id="artifactOutput" aria-live="polite"></pre>
         </div>
       </div>
     </section>
@@ -872,6 +1090,54 @@
     </section>
   </main>
 
+  <section id="references">
+    <div class="section-title">
+      <span class="tag">Claude-provided reference cues</span>
+      <h2>References are listed honestly, without invented links.</h2>
+      <p>
+        The local Claude/PPT material gave reference cues but did not include exact external URLs.
+        Each card below links to local reference notes so reviewers can see what was available from the provided material.
+      </p>
+    </div>
+
+    <div class="reference-grid">
+      <article class="ref-card">
+        <strong>Transcend (USENIX '17)</strong>
+        <p>Concept-drift/security-adaptation cue from the provided slide material.</p>
+        <a href="informations/REFERENCE_NOTES.md#transcend-usenix-17">Open note</a>
+      </article>
+      <article class="ref-card">
+        <strong>INSOMNIA (AISec '21)</strong>
+        <p>Security ML drift cue from the provided slide material.</p>
+        <a href="informations/REFERENCE_NOTES.md#insomnia-aisec-21">Open note</a>
+      </article>
+      <article class="ref-card">
+        <strong>METANOIA (2024)</strong>
+        <p>Adaptive learning / drift response cue from the provided slide material.</p>
+        <a href="informations/REFERENCE_NOTES.md#metanoia-2024">Open note</a>
+      </article>
+      <article class="ref-card">
+        <strong>AutoSHARC (CMES '25)</strong>
+        <p>Automated security adaptation cue from the provided slide material.</p>
+        <a href="informations/REFERENCE_NOTES.md#autosharc-cmes-25">Open note</a>
+      </article>
+      <article class="ref-card">
+        <strong>DriftGuard (arXiv '26)</strong>
+        <p>Drift governance cue from the provided slide material.</p>
+        <a href="informations/REFERENCE_NOTES.md#driftguard-arxiv-26">Open note</a>
+      </article>
+      <article class="ref-card">
+        <strong>ISO/IEC 27001:2022 controls</strong>
+        <p>Controls A.5.15, A.8.16, and A.5.36 used by the prototype policy layer.</p>
+        <a href="informations/REFERENCE_NOTES.md#isoiec-270012022-control-cues">Open note</a>
+      </article>
+    </div>
+
+    <div class="ref-note">
+      Exact external URLs were not present in the local Claude/user-provided files I could inspect, so this page avoids fake citations. When the verified bibliography is provided, these local notes can be replaced with direct publication links.
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="footer-inner">
       <strong>DriftTrust-Audit</strong> turns adaptive Zero Trust from a black-box update into a record that can be reviewed, explained, and governed.
@@ -888,12 +1154,142 @@
     ];
 
     const bars = [
-      ["Static Threshold", 0.831, "Fast rule baseline; no adaptation receipt."],
-      ["RBAC", 0.759, "Role rules; weak against behavior drift."],
-      ["ABAC", 0.768, "Attribute rules; still no model-update audit."],
-      ["Logistic", 0.818, "Simple ML; no AJR/ECI governance layer."],
-      ["DriftTrust-Audit", 0.761, "Adaptive trust plus audit evidence."]
+      ["Static Threshold", 0.8498, "Fast rule baseline; no adaptation receipt."],
+      ["RBAC", 0.7756, "Role rules; weak against behavior drift."],
+      ["ABAC", 0.7835, "Attribute rules; still no model-update audit."],
+      ["Logistic", 0.8514, "Simple ML; no AJR/ECI governance layer."],
+      ["DriftTrust-Audit", 0.6999, "Adaptive trust plus audit evidence."]
     ];
+
+    const figures = [
+      {
+        id: "trust",
+        title: "Trust scores over time",
+        path: "assets/showcase/trust_scores.png",
+        short: "Shows trust behavior and drift moments across the session stream.",
+        text: "This figure makes the research gap visible: a Zero Trust score is not frozen. Session behavior moves, and the model must respond when the environment changes.",
+        meaning: "The advantage is not just the score curve. DriftTrust-Audit records the adaptation event behind the curve so a reviewer can inspect why the model changed.",
+        gap: "Static trust misses behavior drift.",
+        novelty: "Trust change becomes an auditable event.",
+        success: "Detected drift created AJR evidence."
+      },
+      {
+        id: "eci",
+        title: "Explanation consistency over time",
+        path: "assets/showcase/eci_over_time.png",
+        short: "Shows whether model reasoning stayed stable after adaptation.",
+        text: "A model can keep working while silently changing its reasoning. ECI checks that problem directly by comparing explanation rankings before and after adaptation.",
+        meaning: "This is the novelty layer professors should notice: we evaluate whether adaptation is explainable and reviewable, not only whether prediction metrics look acceptable.",
+        gap: "Accuracy alone cannot prove reasoning stability.",
+        novelty: "ECI measures explanation continuity.",
+        success: "Mean ECI reached 0.9206 in the run."
+      },
+      {
+        id: "f1",
+        title: "F1 comparison with baselines",
+        path: "assets/showcase/comparison_f1.png",
+        short: "Compares the proposed system with rule and ML baselines.",
+        text: "The baseline chart is intentionally honest: some baselines can score higher on F1 in a smoke run. But they do not create AJRs, ECI checks, or ISO-mapped policy evidence.",
+        meaning: "The proposed advantage is governance under adaptation. DriftTrust-Audit trades a pure metric race for an auditable adaptive security workflow.",
+        gap: "Baselines decide without adaptation evidence.",
+        novelty: "F1 is shown beside governance value.",
+        success: "Prototype keeps working while producing audit records."
+      },
+      {
+        id: "balanced",
+        title: "Balanced accuracy comparison",
+        path: "assets/showcase/comparison_balanced_accuracy.png",
+        short: "Adds an imbalance-aware comparison view.",
+        text: "Balanced accuracy matters because access-control datasets can be uneven: ordinary sessions may dominate risky sessions. This view keeps the evaluation from depending on only the majority class.",
+        meaning: "The chart supports transparent reviewer discussion. It shows where the current prototype is strong, where it needs larger experiments, and why governance evidence is the distinctive contribution.",
+        gap: "Single metrics can hide class imbalance.",
+        novelty: "Governance artifacts sit beside ML metrics.",
+        success: "The run produced both ML and governance evidence."
+      }
+    ];
+
+    const artifactViews = {
+      "ML metrics": {
+        title: "Machine-learning metrics table",
+        summary: "This generated JSON reports predictive behavior and drift-response counts. It proves the prototype ran a measurable trust-scoring experiment, while also showing that the smoke run is not being oversold as a final benchmark.",
+        href: "assets/showcase/ml_metrics.json",
+        data: {
+          roc_auc: 0.5635,
+          f1: 0.6999,
+          precision: 0.7005,
+          recall: 0.6994,
+          mcc: 0.0955,
+          balanced_accuracy: 0.5478,
+          mttd_sessions: 43.33,
+          detected_drift_count: 14,
+          adaptation_event_count: 14
+        }
+      },
+      "Governance metrics": {
+        title: "Governance and explainability table",
+        summary: "This is the heart of the novelty evidence. It proves that adaptations were not only detected; they were logged, checked, and assigned explanation-consistency values.",
+        href: "assets/showcase/gov_metrics.json",
+        data: {
+          ajr_completeness_rate: 1.0,
+          policy_conformance_rate: 1.0,
+          total_adaptation_events: 14,
+          eci_mean: 0.9206,
+          eci_std: 0.0868,
+          eci_min: 0.7424,
+          eci_max: 1.0,
+          eci_flagged_count: 0,
+          eci_flagged_rate: 0.0
+        }
+      },
+      "Baseline table": {
+        title: "Baseline comparison table",
+        summary: "This table keeps the comparison transparent. It separates ordinary ML performance from the proposed governance contribution, which simple baselines do not provide.",
+        href: "assets/showcase/baseline_metrics.json",
+        data: {
+          "Static Threshold": { roc_auc: 0.7148, f1: 0.8498, balanced_accuracy: 0.6431 },
+          "RBAC": { roc_auc: 0.5027, f1: 0.7756, balanced_accuracy: 0.5027 },
+          "ABAC": { roc_auc: 0.6209, f1: 0.7835, balanced_accuracy: 0.5287 },
+          "Logistic Baseline": { roc_auc: 0.6905, f1: 0.8514, balanced_accuracy: 0.6557 },
+          "DriftTrust-Audit": { roc_auc: 0.5635, f1: 0.6999, balanced_accuracy: 0.5478, mttd_sessions: 43.33, adaptation_event_count: 14 }
+        }
+      },
+      "Novelty flags": {
+        title: "Novelty assessment table",
+        summary: "This generated file checks whether the proposed layer actually operated: AJRs, ISO mapping, ECI, policy conformance, individual JSON audit logs, and operational novelty.",
+        href: "assets/showcase/novelty_assessment.json",
+        data: {
+          AJR_generated_for_adaptations: true,
+          AJR_contains_iso_27001_mapping: true,
+          ECI_computed_for_adaptations: true,
+          policy_conformance_checked: true,
+          audit_logs_are_individual_json_records: true,
+          ajr_completeness_rate_target_met: true,
+          policy_conformance_rate_target_met: true,
+          novelty_layer_operational: true
+        }
+      },
+      "Sample AJR": {
+        title: "Sample Adaptation Justification Record",
+        summary: "This log shows the actual audit receipt produced after a drift-triggered adaptation: trigger, drifted feature, trust-score delta, ECI, ISO checks, and control descriptions.",
+        href: "assets/showcase/logs/sample_ajr.json",
+        data: {
+          ajr_id: "AJR-276E8AD8",
+          drift_trigger: "attribution_based",
+          drifted_feature: "packet_retransmission_rate",
+          attribution_shift_magnitude: 0.233,
+          trust_score_before: 0.5568,
+          trust_score_after: 0.5909,
+          explanation_consistency_index: 0.9455,
+          eci_flag: "OK",
+          iso_policy_checks: {
+            "A.5.15_access_control": "PASSED",
+            "A.8.16_monitoring": "PASSED",
+            "A.5.36_compliance": "PASSED"
+          },
+          overall_policy_status: "PASSED"
+        }
+      }
+    };
 
     const ajrViews = {
       "What changed?": {
@@ -940,6 +1336,47 @@
       row.title = note;
       row.innerHTML = `<span>${name}</span><div class="bar-track"><div class="bar-fill" style="width:${value * 100}%"></div></div><strong>${value.toFixed(3)}</strong>`;
       barRoot.appendChild(row);
+    });
+
+    const figureList = document.getElementById("figureList");
+    function selectFigure(figure) {
+      document.querySelectorAll(".figure-card").forEach(card => card.classList.toggle("active", card.dataset.figure === figure.id));
+      document.getElementById("figurePreview").src = figure.path;
+      document.getElementById("figurePreview").alt = figure.title;
+      document.getElementById("figureTitle").textContent = figure.title;
+      document.getElementById("figureText").textContent = figure.text;
+      document.getElementById("figureMeaning").textContent = figure.meaning;
+      document.getElementById("figureGap").textContent = figure.gap;
+      document.getElementById("figureNovelty").textContent = figure.novelty;
+      document.getElementById("figureSuccess").textContent = figure.success;
+    }
+
+    figures.forEach((figure, index) => {
+      const button = document.createElement("button");
+      button.className = "figure-card";
+      button.dataset.figure = figure.id;
+      button.innerHTML = `<img src="${figure.path}" alt="${figure.title} thumbnail"><span><strong>${figure.title}</strong><span>${figure.short}</span></span>`;
+      button.addEventListener("click", () => selectFigure(figure));
+      figureList.appendChild(button);
+      if (index === 0) selectFigure(figure);
+    });
+
+    const artifactTabs = document.getElementById("artifactTabs");
+    function selectArtifact(label) {
+      const artifact = artifactViews[label];
+      document.querySelectorAll(".artifact-tabs button").forEach(btn => btn.classList.toggle("active", btn.textContent === label));
+      document.getElementById("artifactTitle").textContent = artifact.title;
+      document.getElementById("artifactSummary").textContent = artifact.summary;
+      document.getElementById("artifactOutput").textContent = JSON.stringify(artifact.data, null, 2);
+      document.getElementById("artifactLinks").innerHTML = `<a href="${artifact.href}">Open generated file</a>`;
+    }
+
+    Object.keys(artifactViews).forEach((label, index) => {
+      const button = document.createElement("button");
+      button.textContent = label;
+      button.addEventListener("click", () => selectArtifact(label));
+      artifactTabs.appendChild(button);
+      if (index === 0) selectArtifact(label);
     });
 
     const ajrButtons = document.getElementById("ajrButtons");

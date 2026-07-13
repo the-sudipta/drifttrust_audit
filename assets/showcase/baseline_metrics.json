@@ -1,0 +1,45 @@
+{
+  "Static Threshold": {
+    "roc_auc": 0.7148,
+    "f1": 0.8498,
+    "precision": 0.7388,
+    "recall": 1.0,
+    "mcc": 0.4598,
+    "balanced_accuracy": 0.6431
+  },
+  "RBAC": {
+    "roc_auc": 0.5027,
+    "f1": 0.7756,
+    "precision": 0.6701,
+    "recall": 0.9206,
+    "mcc": 0.0094,
+    "balanced_accuracy": 0.5027
+  },
+  "ABAC": {
+    "roc_auc": 0.6209,
+    "f1": 0.7835,
+    "precision": 0.6829,
+    "recall": 0.919,
+    "mcc": 0.09,
+    "balanced_accuracy": 0.5287
+  },
+  "Logistic Baseline": {
+    "roc_auc": 0.6905,
+    "f1": 0.8514,
+    "precision": 0.7465,
+    "recall": 0.9907,
+    "mcc": 0.4639,
+    "balanced_accuracy": 0.6557
+  },
+  "DriftTrust-Audit": {
+    "roc_auc": 0.5635,
+    "f1": 0.6999,
+    "precision": 0.7005,
+    "recall": 0.6994,
+    "mcc": 0.0955,
+    "balanced_accuracy": 0.5478,
+    "mttd_sessions": 43.33,
+    "detected_drift_count": 14,
+    "adaptation_event_count": 14
+  }
+}

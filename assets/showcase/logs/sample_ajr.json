@@ -1,0 +1,52 @@
+{
+  "ajr_id": "AJR-276E8AD8",
+  "timestamp_utc": "2026-07-13T11:19:29.422663+00:00",
+  "drift_trigger": "attribution_based",
+  "drifted_feature": "packet_retransmission_rate",
+  "attribution_method": "perturbation_attribution",
+  "attribution_shift_magnitude": 0.233,
+  "shap_top_features_after": [
+    "concurrent_sessions",
+    "packet_retransmission_rate",
+    "auth_frequency_per_hr",
+    "session_duration_s",
+    "port_utilisation_entropy"
+  ],
+  "trust_score_before": 0.5568,
+  "trust_score_after": 0.5909,
+  "trust_score_delta": 0.0342,
+  "resource_tag": "public_portal",
+  "session_range": [
+    935,
+    1115
+  ],
+  "sessions_since_last_update": 75,
+  "model_params_changed": 16160,
+  "incremental_losses": [
+    0.473259,
+    0.437731
+  ],
+  "explanation_consistency_index": 0.9455,
+  "eci_components": {
+    "top_k_jaccard": 1.0,
+    "kendall_tau_normalised": 0.8909
+  },
+  "eci_flag": "OK",
+  "iso_policy_checks": {
+    "A.5.15_access_control": "PASSED",
+    "A.8.16_monitoring": "PASSED",
+    "A.5.36_compliance": "PASSED"
+  },
+  "overall_policy_status": "PASSED",
+  "iso_standard": "ISO/IEC 27001:2022",
+  "controls_checked": [
+    "A.5.15",
+    "A.8.16",
+    "A.5.36"
+  ],
+  "control_descriptions": {
+    "A.5.15": "Access control rules for granting, reviewing, and changing access.",
+    "A.8.16": "Monitoring activities for systems, networks, and applications.",
+    "A.5.36": "Compliance with policies, rules, and standards."
+  }
+}

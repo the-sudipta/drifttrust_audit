@@ -1,0 +1,11 @@
+{
+  "ajr_completeness_rate": 1.0,
+  "policy_conformance_rate": 1.0,
+  "total_adaptation_events": 14,
+  "eci_mean": 0.9206,
+  "eci_std": 0.0868,
+  "eci_min": 0.7424,
+  "eci_max": 1.0,
+  "eci_flagged_count": 0,
+  "eci_flagged_rate": 0.0
+}

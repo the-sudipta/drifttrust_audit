@@ -1,0 +1,10 @@
+{
+  "AJR_generated_for_adaptations": true,
+  "AJR_contains_iso_27001_mapping": true,
+  "ECI_computed_for_adaptations": true,
+  "policy_conformance_checked": true,
+  "audit_logs_are_individual_json_records": true,
+  "ajr_completeness_rate_target_met": true,
+  "policy_conformance_rate_target_met": true,
+  "novelty_layer_operational": true
+}

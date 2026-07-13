@@ -20,8 +20,10 @@ Open [index.html](index.html) in a browser to explore a one-page interactive exp
 - a simple story-flow explanation of the research gap,
 - an interactive methodology workflow,
 - result counters and baseline comparison,
+- a generated figure and artifact showcase,
 - an Adaptation Justification Record viewer,
-- a "Try Yourself" mini-lab where session behavior changes the trust score and audit response.
+- a "Try Yourself" mini-lab where session behavior changes the trust score and audit response,
+- a local reference-notes section based only on the Claude/user-provided citation cues.
 
 The page is intentionally written as plain HTML, CSS, and JavaScript so it can be hosted by GitHub Pages or opened locally without a build step.
 
@@ -159,9 +161,17 @@ Layer 3: Adaptation Governance
 │   ├── metrics.py
 │   ├── governance_metrics.py
 │   └── plots.py
+├── assets/
+│   └── showcase/
+│       ├── trust_scores.png
+│       ├── eci_over_time.png
+│       ├── comparison_f1.png
+│       ├── comparison_balanced_accuracy.png
+│       └── logs/sample_ajr.json
 └── informations/
     ├── IMPLEMENTATION_STATUS.md
     ├── GOVERNANCE.md
+    ├── REFERENCE_NOTES.md
     ├── ROADMAP.md
     └── SECURITY.md
 ```
@@ -186,7 +196,7 @@ python main.py
 
 ## Reproduced Smoke-Run Evidence
 
-A verified smoke run produced:
+A verified smoke run produced the committed showcase artifacts below. The values in this table match the JSON files copied into `assets/showcase/` for the website.
 
 <table width="100%">
   <thead>
@@ -198,19 +208,19 @@ A verified smoke run produced:
     </tr>
   </thead>
   <tbody>
-    <tr><td>Adaptation</td><td>Adaptation events</td><td align="right">18</td><td>Shows the system actually encountered drift and adapted.</td></tr>
+    <tr><td>Adaptation</td><td>Adaptation events</td><td align="right">14</td><td>Shows the system actually encountered drift and adapted.</td></tr>
     <tr><td>Auditability</td><td>AJR completeness rate</td><td align="right">1.0000</td><td>Every adaptation produced a complete audit artifact.</td></tr>
-    <tr><td>Governance</td><td>Policy conformance rate</td><td align="right">0.9444</td><td>Most adaptations passed automated ISO-mapped checks.</td></tr>
-    <tr><td>Explainability</td><td>ECI mean</td><td align="right">0.9106</td><td>Model reasoning stayed mostly consistent after adaptation.</td></tr>
+    <tr><td>Governance</td><td>Policy conformance rate</td><td align="right">1.0000</td><td>All showcased smoke-run adaptations passed automated ISO-mapped checks.</td></tr>
+    <tr><td>Explainability</td><td>ECI mean</td><td align="right">0.9206</td><td>Model reasoning stayed mostly consistent after adaptation.</td></tr>
     <tr><td>Explainability</td><td>ECI minimum</td><td align="right">0.7424</td><td>Even the weakest adaptation remained above the review threshold.</td></tr>
     <tr><td>Review workload</td><td>ECI flagged rate</td><td align="right">0.0000</td><td>No smoke-run adaptations required explanation-consistency review.</td></tr>
-    <tr><td>ML performance</td><td>DriftTrust-Audit F1</td><td align="right">0.7608</td><td>Trust scoring remains functional while governance evidence is added.</td></tr>
-    <tr><td>ML performance</td><td>Balanced accuracy</td><td align="right">0.6067</td><td>Useful for judging class imbalance in simulated telemetry.</td></tr>
-    <tr><td>Drift response</td><td>Mean time to detect</td><td align="right">46.67 sessions</td><td>Measures how quickly drift is detected after injected changes.</td></tr>
+    <tr><td>ML performance</td><td>DriftTrust-Audit F1</td><td align="right">0.6999</td><td>Trust scoring remains functional while governance evidence is added.</td></tr>
+    <tr><td>ML performance</td><td>Balanced accuracy</td><td align="right">0.5478</td><td>Useful for judging class imbalance in simulated telemetry.</td></tr>
+    <tr><td>Drift response</td><td>Mean time to detect</td><td align="right">43.33 sessions</td><td>Measures how quickly drift is detected after injected changes.</td></tr>
   </tbody>
 </table>
 
-Generated artifacts include:
+Generated runtime artifacts include:
 
 - `audit_logs/AJR-*.json`,
 - `results/ml_metrics.json`,
@@ -222,7 +232,45 @@ Generated artifacts include:
 - `results/comparison_f1.png`,
 - `results/comparison_balanced_accuracy.png`.
 
-Generated artifacts are intentionally ignored by Git so the repository stays clean.
+The raw `results/` and `audit_logs/` folders are intentionally ignored by Git so the repository stays clean. Curated copies for the public showcase are committed under `assets/showcase/`.
+
+## Result Artifact Showcase
+
+The website now includes a dedicated evidence gallery. These committed files are the public-facing proof pack:
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th align="left">Showcase artifact</th>
+      <th align="left">What it shows</th>
+      <th align="left">Why it matters for the research claim</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>assets/showcase/trust_scores.png</code></td><td>Trust-score movement across the session stream.</td><td>Makes the core gap visible: adaptive Zero Trust changes over time, so adaptation needs reviewable evidence.</td></tr>
+    <tr><td><code>assets/showcase/eci_over_time.png</code></td><td>Explanation-Consistency Index values after adaptation events.</td><td>Shows the novelty beyond ordinary ML metrics: reasoning stability is measured after the model learns.</td></tr>
+    <tr><td><code>assets/showcase/comparison_f1.png</code></td><td>F1 comparison against static threshold, RBAC, ABAC, and logistic baseline.</td><td>Keeps the benchmark honest while showing that baselines do not provide AJR/ECI/ISO governance evidence.</td></tr>
+    <tr><td><code>assets/showcase/comparison_balanced_accuracy.png</code></td><td>Imbalance-aware baseline comparison.</td><td>Helps reviewers understand model behavior under uneven access-control classes.</td></tr>
+    <tr><td><code>assets/showcase/gov_metrics.json</code></td><td>AJR completeness, policy conformance, ECI summary, and review flags.</td><td>Directly supports the claim that the governance layer is operational.</td></tr>
+    <tr><td><code>assets/showcase/logs/sample_ajr.json</code></td><td>One generated Adaptation Justification Record.</td><td>Shows the actual audit receipt: drift trigger, drifted feature, trust-score delta, ECI, and ISO checks.</td></tr>
+  </tbody>
+</table>
+
+## References From Provided Material Only
+
+This repository does not add online-searched references. The currently available citation cues came from the local Claude/user-provided material and are preserved in [informations/REFERENCE_NOTES.md](informations/REFERENCE_NOTES.md).
+
+Those notes include:
+
+- Transcend (USENIX '17),
+- INSOMNIA (AISec '21),
+- METANOIA (2024),
+- AutoSHARC (CMES '25),
+- DriftGuard (arXiv '26),
+- ISO/IEC 27001:2022 controls A.5.15, A.8.16, and A.5.36,
+- other local cues related to SHAP-based drift explanation, Zero Trust/XAI/federated learning, and continual threat learning.
+
+Exact external URLs were not present in the inspected local material, so they were not invented. Once the verified bibliography is available, the local notes can be replaced with direct DOI, publisher, arXiv, patent, or official standard links.
 
 ## Important Research Caveat
 
