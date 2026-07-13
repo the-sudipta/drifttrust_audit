@@ -186,6 +186,29 @@
     }
 
     .console-body { padding: 1.1rem; }
+    .monitor-story {
+      margin: 0 0 1rem;
+      padding: 0.85rem 0.95rem;
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      background: linear-gradient(180deg, #ffffff 0%, #f4faf8 100%);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .monitor-story strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+
+    .trust-meter-layout {
+      display: grid;
+      grid-template-columns: minmax(14rem, 0.8fr) minmax(15rem, 1fr);
+      gap: 1rem;
+      align-items: center;
+    }
+
     .score-ring {
       width: min(18rem, 78vw);
       aspect-ratio: 1;
@@ -232,6 +255,34 @@
     }
 
     .mini strong { font-size: 1.15rem; }
+
+    .monitor-explain {
+      display: grid;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .explain-card {
+      padding: 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    .explain-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .explain-card strong { display: block; }
+
+    .explain-card p {
+      margin: 0.2rem 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
 
     section {
       padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 5vw, 5rem);
@@ -360,6 +411,34 @@
       padding: 1rem;
     }
 
+    .result-note {
+      margin: 0 0 1rem;
+      padding: 0.9rem;
+      border-radius: 0.75rem;
+      background: #f3f8f7;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .advantage-grid {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .advantage {
+      padding: 1rem;
+      border-radius: 0.85rem;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(25, 47, 56, 0.06);
+    }
+
+    .advantage strong { display: block; margin-bottom: 0.35rem; }
+    .advantage p { margin: 0; color: var(--muted); font-size: 0.94rem; }
+
     .bars {
       display: grid;
       gap: 0.85rem;
@@ -455,9 +534,15 @@
 
     .lab-output {
       display: grid;
-      grid-template-columns: 15rem 1fr;
+      grid-template-columns: minmax(11rem, 14rem) minmax(0, 1fr);
       gap: 1rem;
-      align-items: center;
+      align-items: stretch;
+    }
+
+    .lab-output .score-ring {
+      width: min(14rem, 100%);
+      align-self: center;
+      justify-self: center;
     }
 
     .decision {
@@ -465,6 +550,21 @@
       border-radius: 0.8rem;
       background: #fff;
       border: 1px solid var(--line);
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .decision h3 {
+      margin: 0.75rem 0 0.4rem;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.2;
+    }
+
+    .decision p {
+      margin: 0;
+      color: var(--muted);
     }
 
     .pill {
@@ -475,29 +575,91 @@
       font-weight: 900;
       color: #fff;
       background: var(--green);
+      width: fit-content;
+      max-width: 100%;
+      white-space: normal;
+      line-height: 1.2;
     }
 
     .pill.warn { background: var(--gold); color: #2a2114; }
     .pill.deny { background: var(--rose); }
+
+    .explanation-panel {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .risk-list {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .risk-row {
+      display: grid;
+      grid-template-columns: minmax(7rem, 10rem) 1fr 3rem;
+      gap: 0.55rem;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .risk-track {
+      height: 0.55rem;
+      border-radius: 99px;
+      background: #e8f0ef;
+      overflow: hidden;
+    }
+
+    .risk-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), var(--gold), var(--rose));
+      transition: width 0.25s ease;
+    }
+
+    .plain-explain {
+      padding: 0.95rem;
+      border: 1px solid var(--line);
+      border-radius: 0.8rem;
+      background: #f7fbfa;
+      color: var(--muted);
+    }
+
+    .plain-explain strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
 
     .footer {
       padding: 2rem clamp(1rem, 5vw, 5rem);
       color: var(--muted);
       border-top: 1px solid var(--line);
       background: rgba(255,255,255,0.6);
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 72rem;
+      width: 100%;
     }
 
     @media (max-width: 980px) {
-      .hero, .metrics, .ajr-viewer, .lab, .lab-output { grid-template-columns: 1fr; }
-      .story-grid, .workflow { grid-template-columns: 1fr 1fr; }
+      .hero, .metrics, .ajr-viewer, .lab, .lab-output, .trust-meter-layout, .explanation-panel { grid-template-columns: 1fr; }
+      .story-grid, .workflow, .advantage-grid { grid-template-columns: 1fr 1fr; }
       .links { display: none; }
       .bar-row { grid-template-columns: 7rem 1fr 3rem; }
     }
 
     @media (max-width: 620px) {
-      .story-grid, .workflow, .metric-list, .mini-grid { grid-template-columns: 1fr; }
+      .story-grid, .workflow, .metric-list, .mini-grid, .advantage-grid { grid-template-columns: 1fr; }
       .hero { padding-top: 2rem; }
       h1 { font-size: 3.3rem; }
+      .risk-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -539,10 +701,28 @@
           <span class="pulse">Audit trail active</span>
         </div>
         <div class="console-body">
-          <div class="score-ring" id="heroRing" style="--score: 73">
-            <strong id="heroScore">73</strong>
+          <div class="monitor-story">
+            <strong>What is moving here?</strong>
+            This live monitor imitates an adaptive Zero Trust system. The trust score changes as behavior shifts, but every risky change must leave evidence: an AJR, an ECI score, and a policy check.
           </div>
-          <div class="mini-grid">
+          <div class="trust-meter-layout">
+            <div class="score-ring" id="heroRing" style="--score: 73">
+              <strong id="heroScore">73</strong>
+            </div>
+            <div class="monitor-explain">
+              <div class="explain-card">
+                <span>Current signal</span>
+                <strong id="heroSignal">Normal remote-work pattern</strong>
+                <p id="heroExplain">Trust is stable because device posture and access context still match the learned baseline.</p>
+              </div>
+              <div class="explain-card">
+                <span>Governance response</span>
+                <strong id="heroGovernance">Monitor only</strong>
+                <p id="heroGovernanceText">No adaptation needed. The audit layer is ready if drift appears.</p>
+              </div>
+            </div>
+          </div>
+          <div class="mini-grid" style="margin-top: 1rem;">
             <div class="mini"><span>AJRs created</span><strong>18</strong></div>
             <div class="mini"><span>ECI mean</span><strong>0.91</strong></div>
             <div class="mini"><span>Policy pass</span><strong>94%</strong></div>
@@ -615,8 +795,24 @@
         </div>
         <div class="chart">
           <h3>Baseline comparison: F1 score</h3>
-          <p style="color: var(--muted); margin-top: 0;">The point is not only to win every ML metric. The key value is adaptation with evidence.</p>
+          <p class="result-note">
+            Some simple baselines can score well on one metric in a simulated run. Our proposed layer adds what those baselines cannot provide: adaptation evidence, explanation consistency, and compliance checks for every model update.
+          </p>
           <div class="bars" id="bars"></div>
+        </div>
+        <div class="advantage-grid">
+          <div class="advantage">
+            <strong>Static/RBAC/ABAC decide, but do not learn.</strong>
+            <p>They can be understandable, but they do not explain how the model should respond when behavior drifts over time.</p>
+          </div>
+          <div class="advantage">
+            <strong>Plain adaptive ML learns, but may not justify.</strong>
+            <p>It can update after drift, but a reviewer may still ask why the update happened and whether it changed reasoning safely.</p>
+          </div>
+          <div class="advantage">
+            <strong>DriftTrust-Audit learns and leaves evidence.</strong>
+            <p>AJR + ECI + ISO checks turn adaptation into an auditable governance event, which is the publication novelty.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -663,6 +859,13 @@
               <p id="labText">The trust score is high, and the top explanation is healthy device posture.</p>
             </div>
           </div>
+          <div class="explanation-panel">
+            <div class="plain-explain">
+              <strong>Why did the score change?</strong>
+              <span id="dynamicReason">The sliders are calm, so the system continues monitoring without adaptation.</span>
+            </div>
+            <div class="risk-list" id="riskList" aria-label="Risk contribution breakdown"></div>
+          </div>
           <pre id="miniAjr" style="margin-top: 1rem;"></pre>
         </div>
       </div>
@@ -670,7 +873,9 @@
   </main>
 
   <footer class="footer">
-    <strong>DriftTrust-Audit</strong> turns adaptive Zero Trust from a black-box update into a record that can be reviewed, explained, and governed.
+    <div class="footer-inner">
+      <strong>DriftTrust-Audit</strong> turns adaptive Zero Trust from a black-box update into a record that can be reviewed, explained, and governed.
+    </div>
   </footer>
 
   <script>
@@ -683,11 +888,11 @@
     ];
 
     const bars = [
-      ["Static Threshold", 0.831],
-      ["RBAC", 0.759],
-      ["ABAC", 0.768],
-      ["Logistic", 0.818],
-      ["DriftTrust-Audit", 0.761]
+      ["Static Threshold", 0.831, "Fast rule baseline; no adaptation receipt."],
+      ["RBAC", 0.759, "Role rules; weak against behavior drift."],
+      ["ABAC", 0.768, "Attribute rules; still no model-update audit."],
+      ["Logistic", 0.818, "Simple ML; no AJR/ECI governance layer."],
+      ["DriftTrust-Audit", 0.761, "Adaptive trust plus audit evidence."]
     ];
 
     const ajrViews = {
@@ -729,9 +934,10 @@
     setWorkflow(0);
 
     const barRoot = document.getElementById("bars");
-    bars.forEach(([name, value]) => {
+    bars.forEach(([name, value, note]) => {
       const row = document.createElement("div");
       row.className = "bar-row";
+      row.title = note;
       row.innerHTML = `<span>${name}</span><div class="bar-track"><div class="bar-fill" style="width:${value * 100}%"></div></div><strong>${value.toFixed(3)}</strong>`;
       barRoot.appendChild(row);
     });
@@ -772,6 +978,39 @@
 
     const inputs = ["auth", "device", "geo", "resource", "packet"].map(id => document.getElementById(id));
     const defaults = { auth: 4, device: 82, geo: 120, resource: 1, packet: 8 };
+    const riskLabels = {
+      auth: "Login frequency",
+      device: "Device risk",
+      geo: "Location jump",
+      resource: "Resource sensitivity",
+      packet: "Network anomaly"
+    };
+
+    function renderRiskBreakdown(factors) {
+      const riskList = document.getElementById("riskList");
+      riskList.innerHTML = "";
+      factors.forEach(([key, value]) => {
+        const pct = Math.round(Math.max(0, Math.min(1, value)) * 100);
+        const row = document.createElement("div");
+        row.className = "risk-row";
+        row.innerHTML = `<span>${riskLabels[key]}</span><div class="risk-track"><div class="risk-fill" style="width:${pct}%"></div></div><strong>${pct}%</strong>`;
+        riskList.appendChild(row);
+      });
+    }
+
+    function plainReason(topKey, trust, drift) {
+      const label = riskLabels[topKey].toLowerCase();
+      if (drift) {
+        return `Drift was injected, so the system treats the changed pattern as a possible new environment. It would adapt carefully, then generate an AJR and ECI score so the update can be reviewed.`;
+      }
+      if (trust < 45) {
+        return `The score dropped mainly because ${label} is high-risk. A real system should challenge access and record the explanation for audit review.`;
+      }
+      if (trust < 68) {
+        return `The score is uncertain because ${label} is pushing the session away from normal behavior. Step-up MFA or human review would be reasonable.`;
+      }
+      return `The score remains high. The largest risk signal is still ${label}, but it is not strong enough to trigger adaptation. The system keeps monitoring.`;
+    }
 
     function updateLab(drift = false) {
       const auth = Number(document.getElementById("auth").value);
@@ -813,21 +1052,31 @@
       pill.textContent = decision;
 
       const factors = [
-        ["auth_frequency_per_hr", auth / 30],
-        ["device_posture_score", 1 - device / 100],
-        ["geo_displacement_km", geo / 2000],
-        ["resource_sensitivity_level", resource / 3],
-        ["packet_retransmission_rate", packet / 100]
+        ["auth", auth / 30],
+        ["device", 1 - device / 100],
+        ["geo", geo / 2000],
+        ["resource", resource / 3],
+        ["packet", packet / 100]
       ].sort((a, b) => b[1] - a[1]);
       const top = factors[0][0];
-      text.textContent = `Top explanation: ${top.replaceAll("_", " ")}. The audit layer would record this reason if adaptation is triggered.`;
+      const featureMap = {
+        auth: "auth_frequency_per_hr",
+        device: "device_posture_score",
+        geo: "geo_displacement_km",
+        resource: "resource_sensitivity_level",
+        packet: "packet_retransmission_rate"
+      };
+      text.textContent = `Top explanation: ${featureMap[top].replaceAll("_", " ")}. The audit layer would record this reason if adaptation is triggered.`;
+      document.getElementById("dynamicReason").textContent = plainReason(top, trust, drift);
+      renderRiskBreakdown(factors);
 
       document.getElementById("miniAjr").textContent = JSON.stringify({
         simulated_trust_score: trust / 100,
         decision,
-        top_explanation: top,
+        top_explanation: featureMap[top],
         drift_trigger: drift ? "user_injected_drift" : "none",
-        audit_action: drift ? "Generate AJR + compute ECI + run ISO checks" : "Continue monitoring"
+        audit_action: drift ? "Generate AJR + compute ECI + run ISO checks" : "Continue monitoring",
+        plain_english_reason: plainReason(top, trust, drift)
       }, null, 2);
     }
 
@@ -839,13 +1088,47 @@
     });
     updateLab(false);
 
-    let hero = 73;
+    const heroStates = [
+      {
+        score: 78,
+        signal: "Normal remote-work pattern",
+        explain: "Trust is stable because device posture and access context still match the learned baseline.",
+        governance: "Monitor only",
+        governanceText: "No adaptation needed. The audit layer is ready if drift appears."
+      },
+      {
+        score: 69,
+        signal: "Login rhythm is changing",
+        explain: "The model sees more authentication activity than usual, so confidence decreases slightly.",
+        governance: "Watch for drift",
+        governanceText: "If this pattern continues, drift detection may trigger an adaptation event."
+      },
+      {
+        score: 58,
+        signal: "Attribution shift detected",
+        explain: "The top reason moved toward concurrent sessions and network anomaly, so the explanation changed.",
+        governance: "Prepare AJR",
+        governanceText: "A model update would need an AJR, ECI score, and ISO policy checks."
+      },
+      {
+        score: 74,
+        signal: "Post-adaptation stability",
+        explain: "After learning the new pattern, the score recovers while the audit trail preserves the update evidence.",
+        governance: "Evidence stored",
+        governanceText: "The system can now explain what changed and why the update was allowed."
+      }
+    ];
+    let heroIndex = 0;
     setInterval(() => {
-      hero += Math.random() > 0.5 ? 1 : -1;
-      hero = Math.max(67, Math.min(81, hero));
-      document.getElementById("heroRing").style.setProperty("--score", hero);
-      document.getElementById("heroScore").textContent = hero;
-    }, 1400);
+      heroIndex = (heroIndex + 1) % heroStates.length;
+      const state = heroStates[heroIndex];
+      document.getElementById("heroRing").style.setProperty("--score", state.score);
+      document.getElementById("heroScore").textContent = state.score;
+      document.getElementById("heroSignal").textContent = state.signal;
+      document.getElementById("heroExplain").textContent = state.explain;
+      document.getElementById("heroGovernance").textContent = state.governance;
+      document.getElementById("heroGovernanceText").textContent = state.governanceText;
+    }, 2300);
   </script>
 </body>
 </html>

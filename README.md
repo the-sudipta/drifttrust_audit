@@ -2,6 +2,13 @@
 
 **Audit-ready adaptive Zero Trust access control for concept-drifting enterprise environments**
 
+[![Python Smoke Check](https://github.com/the-sudipta/drifttrust_audit/actions/workflows/python-smoke.yml/badge.svg)](https://github.com/the-sudipta/drifttrust_audit/actions/workflows/python-smoke.yml)
+![Research Prototype](https://img.shields.io/badge/status-research%20prototype-226f8f)
+![Governance Layer](https://img.shields.io/badge/novelty-AJR%20%2B%20ECI%20%2B%20ISO%2027001-1d8a7a)
+![License: MIT](https://img.shields.io/badge/license-MIT-d9902f)
+
+> Adaptive AI security is useful only when its updates can be explained, reviewed, and governed.
+
 DriftTrust-Audit is a research prototype for studying how adaptive AI access-control systems can remain accountable after concept drift. It combines simulated enterprise network telemetry, adaptive trust scoring, drift detection, incremental model updates, and a governance layer that records why each model update occurred.
 
 The core contribution is not only that a trust model can adapt. The central contribution is that each adaptation can be made auditable, explanation-aware, and policy-traceable through structured governance artifacts.
@@ -17,6 +24,14 @@ Open [index.html](index.html) in a browser to explore a one-page interactive exp
 - a "Try Yourself" mini-lab where session behavior changes the trust score and audit response.
 
 The page is intentionally written as plain HTML, CSS, and JavaScript so it can be hosted by GitHub Pages or opened locally without a build step.
+
+<table width="100%">
+  <tr>
+    <td width="33%"><strong>For professors</strong><br>Clear research gap, methodology, novelty, and paper-grade extension path.</td>
+    <td width="33%"><strong>For reviewers</strong><br>Transparent evidence of what was implemented, what was measured, and what remains a caveat.</td>
+    <td width="33%"><strong>For organizations</strong><br>Shows why adaptive access control needs audit records, not only trust scores.</td>
+  </tr>
+</table>
 
 ## Why This Research Matters
 
@@ -173,17 +188,27 @@ python main.py
 
 A verified smoke run produced:
 
-| Metric | Value |
-|---|---:|
-| Adaptation events | 18 |
-| AJR completeness rate | 1.0000 |
-| Policy conformance rate | 0.9444 |
-| ECI mean | 0.9106 |
-| ECI minimum | 0.7424 |
-| ECI flagged rate | 0.0000 |
-| DriftTrust-Audit F1 | 0.7608 |
-| Balanced accuracy | 0.6067 |
-| Mean time to detect | 46.67 sessions |
+<table width="100%">
+  <thead>
+    <tr>
+      <th align="left">Evidence Category</th>
+      <th align="left">Metric</th>
+      <th align="right">Value</th>
+      <th align="left">Why it matters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Adaptation</td><td>Adaptation events</td><td align="right">18</td><td>Shows the system actually encountered drift and adapted.</td></tr>
+    <tr><td>Auditability</td><td>AJR completeness rate</td><td align="right">1.0000</td><td>Every adaptation produced a complete audit artifact.</td></tr>
+    <tr><td>Governance</td><td>Policy conformance rate</td><td align="right">0.9444</td><td>Most adaptations passed automated ISO-mapped checks.</td></tr>
+    <tr><td>Explainability</td><td>ECI mean</td><td align="right">0.9106</td><td>Model reasoning stayed mostly consistent after adaptation.</td></tr>
+    <tr><td>Explainability</td><td>ECI minimum</td><td align="right">0.7424</td><td>Even the weakest adaptation remained above the review threshold.</td></tr>
+    <tr><td>Review workload</td><td>ECI flagged rate</td><td align="right">0.0000</td><td>No smoke-run adaptations required explanation-consistency review.</td></tr>
+    <tr><td>ML performance</td><td>DriftTrust-Audit F1</td><td align="right">0.7608</td><td>Trust scoring remains functional while governance evidence is added.</td></tr>
+    <tr><td>ML performance</td><td>Balanced accuracy</td><td align="right">0.6067</td><td>Useful for judging class imbalance in simulated telemetry.</td></tr>
+    <tr><td>Drift response</td><td>Mean time to detect</td><td align="right">46.67 sessions</td><td>Measures how quickly drift is detected after injected changes.</td></tr>
+  </tbody>
+</table>
 
 Generated artifacts include:
 
@@ -232,6 +257,21 @@ DriftTrust-Audit sits at the intersection of:
 This makes it attractive for supervisors and assistant professors looking for research that is technically implementable, publishable, and institutionally relevant. The work can mature into a PhD agenda around one core question:
 
 > How can adaptive AI security systems remain accountable, explainable, and policy-conformant while learning from changing operational environments?
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th align="left">Research Strength</th>
+      <th align="left">What DriftTrust-Audit already provides</th>
+      <th align="left">PhD-scale expansion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Technical feasibility</td><td>Runnable prototype with simulation, adaptation, AJR, ECI, and policy checks.</td><td>Upgrade to LSTM/GRU, SHAP, River ADWIN, and real-world log studies.</td></tr>
+    <tr><td>Novel governance angle</td><td>Adaptation is evaluated as an auditable event, not only a model update.</td><td>Formal AJR schema, reviewer studies, compliance automation, and human review workflows.</td></tr>
+    <tr><td>Publication potential</td><td>Clear gap between adaptive security ML and information security management auditability.</td><td>Journal-ready ablations, multi-seed statistics, and cross-domain case studies.</td></tr>
+  </tbody>
+</table>
 
 Possible PhD extensions include:
 
