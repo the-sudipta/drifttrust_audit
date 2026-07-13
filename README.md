@@ -15,7 +15,7 @@ The core contribution is not only that a trust model can adapt. The central cont
 
 ## Interactive Research Showcase
 
-Open [index.html](index.html) in a browser to explore a one-page interactive explanation of the project. The page includes:
+Open [this](https://the-sudipta.github.io/drifttrust_audit/) in a browser to explore a one-page interactive explanation of the project. The page includes:
 
 - a simple story-flow explanation of the research gap,
 - an interactive methodology workflow,
