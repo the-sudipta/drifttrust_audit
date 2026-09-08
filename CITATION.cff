@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use DriftTrust-Audit, please cite this repository."
 title: "DriftTrust-Audit: Audit-Ready Adaptive Zero Trust Access Control Under Concept Drift"
-version: "0.1.0"
-date-released: "2026-07-13"
+version: "0.2.0"
+date-released: "2026-09-09"
 authors:
   - name: "Sudipta"
     affiliation: "American International University-Bangladesh"

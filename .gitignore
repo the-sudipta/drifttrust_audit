@@ -33,3 +33,12 @@ docs/CLAUDE Chat.htm
 Thumbs.db
 .idea/
 .vscode/
+
+# Public-data experiment inputs and private runtime state
+data/public/
+data/prepared/
+node_modules/
+dist/
+.wrangler/
+.local/
+*.tar.gz

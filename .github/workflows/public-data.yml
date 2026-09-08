@@ -1,0 +1,31 @@
+name: Public-data engine checks
+on:
+  push:
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - run: pnpm build
+      - name: Verify primary audit chain
+        run: node scripts/verify-audit.mjs assets/research/audit_records.json
+      - name: Test the actual local API
+        run: |
+          node scripts/dev.mjs > /tmp/drifttrust-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID"' EXIT
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8787/api/health; then break; fi
+            sleep 1
+          done
+          node tests/api-check.mjs http://localhost:8787

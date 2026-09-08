@@ -1,3 +1,5 @@
+> Historical synthetic-backend documentation. For the current public-data experiment and deployed lab, see [the RT-IoT2022 report](../assets/research/RESEARCH_REPORT.md) and [deployment guide](../assets/research/DEPLOYMENT.md). Do not mix these older metrics with the public-data study.
+
 # DriftTrust-Audit Implementation Status
 
 ## What Was Implemented

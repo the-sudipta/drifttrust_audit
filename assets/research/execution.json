@@ -1,0 +1,58 @@
+{
+  "engine_version": "rtiot-mlp-v1",
+  "engine_sha256": "97185bc9685daeb7a9dfd8b2e35d30f4bf15e46d227ddc08655760f6f098d4df",
+  "node": "v24.19.0",
+  "runs": [
+    {
+      "seed": 11,
+      "protocol": "stationary",
+      "path": "results-stationary-11.json"
+    },
+    {
+      "seed": 11,
+      "protocol": "shifted",
+      "path": "results-shifted-11.json"
+    },
+    {
+      "seed": 23,
+      "protocol": "stationary",
+      "path": "results-stationary-23.json"
+    },
+    {
+      "seed": 23,
+      "protocol": "shifted",
+      "path": "results-shifted-23.json"
+    },
+    {
+      "seed": 37,
+      "protocol": "stationary",
+      "path": "results-stationary-37.json"
+    },
+    {
+      "seed": 37,
+      "protocol": "shifted",
+      "path": "results-shifted-37.json"
+    },
+    {
+      "seed": 53,
+      "protocol": "stationary",
+      "path": "results-stationary-53.json"
+    },
+    {
+      "seed": 53,
+      "protocol": "shifted",
+      "path": "results-shifted-53.json"
+    },
+    {
+      "seed": 71,
+      "protocol": "stationary",
+      "path": "results-stationary-71.json"
+    },
+    {
+      "seed": 71,
+      "protocol": "shifted",
+      "path": "results-shifted-71.json"
+    }
+  ],
+  "finished_at_utc": "2026-09-08T18:16:01.237Z"
+}

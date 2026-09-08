@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {build} from 'esbuild';
+const root=path.resolve('.');
+const target=path.resolve('dist');
+if(path.dirname(target)!==root)throw new Error('Invalid build target');
+fs.rmSync(target,{recursive:true,force:true});
+fs.mkdirSync('dist/client',{recursive:true});
+for(const p of ['index.html','lab.html','site.css','site.mjs','lab.mjs'])fs.copyFileSync(p,`dist/client/${p}`);
+fs.cpSync('assets/research','dist/client/assets/research',{recursive:true});
+fs.mkdirSync('dist/.openai',{recursive:true});
+fs.copyFileSync('.openai/hosting.json','dist/.openai/hosting.json');
+fs.cpSync('drizzle','dist/.openai/drizzle',{recursive:true});
+await build({entryPoints:['runtime/worker.mjs'],outfile:'dist/server/index.js',bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true});
+const mod=await import('../dist/server/index.js');if(typeof mod.default.fetch!=='function')throw new Error('Worker fetch export missing');
+console.log('Built Worker and public research site.');
