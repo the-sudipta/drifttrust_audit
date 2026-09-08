@@ -1,0 +1,23 @@
+{
+  "base": "https://drifttrust-audit-lab.pipratools.chatgpt.site",
+  "checked_at_utc": "2026-09-08T18:33:00.028Z",
+  "passed": true,
+  "checks": [
+    "health and database",
+    "exported-model inference parity",
+    "same-engine replay parity (1e-10 tolerance)",
+    "invalid input rejection",
+    "cross-origin write rejection",
+    "session isolation",
+    "idempotent retries",
+    "stale revision rejection",
+    "full replay",
+    "audit hash-chain integrity",
+    "unlabelled inference-only stream"
+  ],
+  "replay_parity_max_absolute_error": 8.326672684688674e-17,
+  "replay_flows": 1280,
+  "actual_candidates": 5,
+  "accepted": 5,
+  "rejected": 0
+}
