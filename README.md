@@ -130,3 +130,5 @@ node tests/browser-pages.cjs http://localhost:8788/drifttrust_audit/
 Outputs go to ignored `.local/`. The test creates its own disposable browser context. [Complete explanation PDF](assets/research/learning/DriftTrust_learning_dossier.pdf) and [Word dossier](assets/research/learning/DriftTrust_learning_dossier.docx) accompany the offline fieldbook.
 
 [Recorded public GitHub Pages verification](assets/research/browser_verification.json) includes the tested URL, timestamp, source commit and actual replay outcomes.
+
+[Complete project documentation and learning-package sources](docs/README.md) are versioned in this repository, including slides, original planning documents and final QA evidence.

@@ -1,0 +1,71 @@
+{
+  "topic": "DriftTrust Audit Code and Live Lab Guide",
+  "source_snapshot": "GitHub Pages browser migration inspected 9 September 2026. The scientific engine and published initial weights remain from the measured experiment; the interface and persistence now run locally in the browser. Current primary site: GitHub Pages; model execution and session storage stay in the browser.",
+  "exported_at": "2026-09-09T05:21:48.599Z",
+  "modules": [
+    {
+      "title": "What is actually running",
+      "answer": 0,
+      "draft": "",
+      "checklist": true,
+      "complete": true
+    },
+    {
+      "title": "A visitor's first ten minutes",
+      "answer": 1,
+      "draft": "",
+      "checklist": true,
+      "complete": true
+    },
+    {
+      "title": "Data provenance and initial training",
+      "answer": 1,
+      "draft": "",
+      "checklist": true,
+      "complete": true
+    },
+    {
+      "title": "How one flow becomes a score",
+      "answer": 1,
+      "draft": "",
+      "checklist": true,
+      "complete": true
+    },
+    {
+      "title": "When the stream suggests drift",
+      "answer": 1,
+      "draft": "",
+      "checklist": true,
+      "complete": true
+    },
+    {
+      "title": "How a candidate learns",
+      "answer": 1,
+      "draft": "",
+      "checklist": true,
+      "complete": true
+    },
+    {
+      "title": "Why a candidate is accepted or rejected",
+      "answer": 1,
+      "draft": "",
+      "checklist": true,
+      "complete": true
+    },
+    {
+      "title": "Audit records and session persistence",
+      "answer": 1,
+      "draft": "",
+      "checklist": true,
+      "complete": true
+    },
+    {
+      "title": "Reading evidence and defending the project",
+      "answer": 1,
+      "draft": "<script>alert(\"study\")</script> My explanation",
+      "checklist": true,
+      "complete": true
+    }
+  ],
+  "review": []
+}

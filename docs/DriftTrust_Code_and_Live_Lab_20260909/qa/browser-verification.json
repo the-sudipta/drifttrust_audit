@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "modules": 9,
+  "activities": 9,
+  "review_cards": 27,
+  "checks": [
+    "offline file load",
+    "all widgets and resets",
+    "normal and boundary cases",
+    "actual model example outputs",
+    "slider pointer drag",
+    "wrong/correct quizzes",
+    "draft retention and escaping",
+    "note export",
+    "review shuffle/filter/restore",
+    "glossary and dialogs",
+    "responsive overflow",
+    "reload resets"
+  ],
+  "unexpected_requests": [],
+  "runtime_errors": []
+}
