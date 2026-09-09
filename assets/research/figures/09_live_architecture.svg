@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-09-09T00:16:12.848653</dc:date>
+    <dc:date>2026-09-09T11:10:45.650729</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -40,7 +40,7 @@ Q 23.3784 32.2344 23.3784 35.928
 L 23.3784 93.384 
 Q 23.3784 97.0776 30.312 97.0776 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #e9eef3; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #e9eef3; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 292.248 97.0776 
@@ -53,7 +53,7 @@ Q 285.3144 32.2344 285.3144 35.928
 L 285.3144 93.384 
 Q 285.3144 97.0776 292.248 97.0776 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #e3f2f0; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #e3f2f0; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 554.184 97.0776 
@@ -66,7 +66,7 @@ Q 547.2504 32.2344 547.2504 35.928
 L 547.2504 93.384 
 Q 547.2504 97.0776 554.184 97.0776 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #e9eef3; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #e9eef3; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 45.72 224.3016 
@@ -79,7 +79,7 @@ Q 38.7864 155.3544 38.7864 159.048
 L 38.7864 220.608 
 Q 38.7864 224.3016 45.72 224.3016 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #e3f2f0; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #e3f2f0; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 292.248 224.3016 
@@ -92,7 +92,7 @@ Q 285.3144 155.3544 285.3144 159.048
 L 285.3144 220.608 
 Q 285.3144 224.3016 292.248 224.3016 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #e3f2f0; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #e3f2f0; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
     <path d="M 554.184 224.3016 
@@ -105,7 +105,7 @@ Q 547.2504 155.3544 547.2504 159.048
 L 547.2504 220.608 
 Q 547.2504 224.3016 554.184 224.3016 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #e3f2f0; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #e3f2f0; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
     <path d="M 276.84 372.0456 
@@ -118,7 +118,7 @@ Q 269.9064 294.8904 269.9064 298.584
 L 269.9064 368.352 
 Q 269.9064 372.0456 276.84 372.0456 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #daf0e4; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #daf0e4; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_9">
     <path d="M 546.48 372.0456 
@@ -131,89 +131,89 @@ Q 539.5464 294.8904 539.5464 298.584
 L 539.5464 368.352 
 Q 539.5464 372.0456 546.48 372.0456 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #fae8e3; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #fae8e3; stroke: #a7b3c0; stroke-width: 0.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_10">
     <path d="M 240.317943 64.656 
 Q 265.282976 64.656 289.129974 64.656 
-" clip-path="url(#pd35fb221d9)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
     <path d="M 284.329974 62.256 
 L 289.129974 64.656 
 L 284.329974 67.056 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
    </g>
    <g id="patch_11">
     <path d="M 502.253943 64.656 
 Q 527.218976 64.656 551.065974 64.656 
-" clip-path="url(#pd35fb221d9)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
     <path d="M 546.265974 62.256 
 L 551.065974 64.656 
 L 546.265974 67.056 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
    </g>
    <g id="patch_12">
     <path d="M 394.315009 93.89199 
 Q 271.062089 126.215977 148.890632 158.256342 
-" clip-path="url(#pd35fb221d9)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
     <path d="M 154.142445 159.360177 
 L 148.890632 158.256342 
 L 152.924788 154.717192 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
    </g>
    <g id="patch_13">
     <path d="M 248.024294 189.828 
 Q 269.136093 189.828 289.129858 189.828 
-" clip-path="url(#pd35fb221d9)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
     <path d="M 284.329858 187.428 
 L 289.129858 189.828 
 L 284.329858 192.228 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
    </g>
    <g id="patch_14">
     <path d="M 502.253943 189.828 
 Q 527.218976 189.828 551.065974 189.828 
-" clip-path="url(#pd35fb221d9)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
     <path d="M 546.265974 187.428 
 L 551.065974 189.828 
 L 546.265974 192.228 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
    </g>
    <g id="patch_15">
     <path d="M 652.414585 221.163646 
 Q 519.517324 259.595617 387.69409 297.716996 
-" clip-path="url(#pd35fb221d9)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
     <path d="M 392.97188 298.689074 
 L 387.69409 297.716996 
 L 391.638427 294.078011 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
    </g>
    <g id="patch_16">
     <path d="M 654.23749 222.602137 
 Q 652.410115 259.593673 650.637903 295.468537 
-" clip-path="url(#pd35fb221d9)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: none; stroke: #536577; stroke-linecap: round"/>
     <path d="M 653.271811 290.792799 
 L 650.637903 295.468537 
 L 648.477657 290.555968 
 z
-" clip-path="url(#pd35fb221d9)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
+" clip-path="url(#pdf1b5610ef)" style="fill: #536577; stroke: #536577; stroke-linecap: round"/>
    </g>
    <g id="text_1">
     <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(100.731937 61.593012)">Browser inputs</text>
     <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(69.758578 72.395473)">Measured flow / CSV / replay</text>
    </g>
    <g id="text_2">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(371.849344 61.593012)">Worker API</text>
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(325.505672 72.395473)">Validate input + isolate session</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(349.492078 61.593012)">Browser Web Worker</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(321.159656 72.395473)">Same shared engine + validation</text>
    </g>
    <g id="text_3">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(625.713891 61.593012)">D1 database</text>
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(589.995844 72.395473)">Session model + audit chain</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(616.812328 61.593012)">Local IndexedDB</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(596.267016 72.395473)">Model state + audit chain</text>
    </g>
    <g id="text_4">
     <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(98.740828 186.765012)">Actual MLP inference</text>
@@ -224,7 +224,7 @@ z
     <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(335.232703 197.567473)">Train candidate with replay</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(599.256 186.765012)">Fixed-anchor policy gate</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(608.562562 186.765012)">Fixed-anchor checks</text>
     <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(594.079594 197.567473)">ECI + loss + attack misses</text>
    </g>
    <g id="text_7">
@@ -236,15 +236,15 @@ z
     <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(603.250172 341.207473)">Keep previous model</text>
    </g>
    <g id="text_9">
-    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start" x="528.7608" y="259.596" transform="rotate(-0 528.7608 259.596)">PASS</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start" x="528.7608" y="259.596" transform="rotate(-0 528.7608 259.596)">PASS / AUDIT-ONLY</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start" x="661.6548" y="259.596" transform="rotate(-0 661.6548 259.596)">FAIL</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start" x="661.6548" y="259.596" transform="rotate(-0 661.6548 259.596)">FAIL + GATED</text>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pd35fb221d9">
+  <clipPath id="pdf1b5610ef">
    <rect x="7.2" y="7.2" width="770.4" height="410.4"/>
   </clipPath>
  </defs>

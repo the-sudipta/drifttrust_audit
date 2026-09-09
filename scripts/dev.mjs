@@ -17,7 +17,7 @@ const DB={prepare:sql=>prepared(sql),async batch(queries){db.exec('BEGIN IMMEDIA
 const types={'.html':'text/html; charset=utf-8','.css':'text/css','.mjs':'text/javascript','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.pdf':'application/pdf','.zip':'application/zip','.csv':'text/csv','.md':'text/plain; charset=utf-8'};
 const ASSETS={async fetch(request){
  const name=decodeURIComponent(new URL(request.url).pathname);const relative=name==='/'?'index.html':name.slice(1);
- const allowed=['index.html','lab.html','site.css','site.mjs','lab.mjs'];
+ const allowed=['index.html','lab.html','guide.html','site.css','site.mjs','lab.mjs','explanations.mjs','runtime/engine.mjs','runtime/browser-client.mjs','runtime/browser-worker.mjs'];
  if(!allowed.includes(relative)&&!relative.startsWith('assets/research/'))return new Response('Not found',{status:404});
  const file=path.resolve(relative);if(!file.startsWith(path.resolve('.')+path.sep))return new Response('Not found',{status:404});
  try{return new Response(fs.readFileSync(file),{headers:{'Content-Type':types[path.extname(file)]??'application/octet-stream'}})}catch{return new Response('Not found',{status:404})}

@@ -147,14 +147,14 @@ def main():
       [('raw','clean',''),('clean','split',''),('split','fit',''),('split','val',''),('fit','eval',''),('val','eval','')],(11,6))
     diagram('09_live_architecture',{
       'input':(.03,.79,.27,.14,'Browser inputs\nMeasured flow / CSV / replay','#e9eef3'),
-      'api':(.37,.79,.27,.14,'Worker API\nValidate input + isolate session','#e3f2f0'),
-      'db':(.71,.79,.26,.14,'D1 database\nSession model + audit chain','#e9eef3'),
+      'api':(.37,.79,.27,.14,'Browser Web Worker\nSame shared engine + validation','#e3f2f0'),
+      'db':(.71,.79,.26,.14,'Local IndexedDB\nModel state + audit chain','#e9eef3'),
       'score':(.05,.48,.26,.15,'Actual MLP inference\nRisk + feature attribution','#e3f2f0'),
       'update':(.37,.48,.27,.15,'Label feedback + drift\nTrain candidate with replay','#e3f2f0'),
-      'gate':(.71,.48,.26,.15,'Fixed-anchor policy gate\nECI + loss + attack misses','#e3f2f0'),
+      'gate':(.71,.48,.26,.15,'Fixed-anchor checks\nECI + loss + attack misses','#e3f2f0'),
       'accept':(.35,.12,.28,.17,'Accepted candidate\nActivate session model','#daf0e4'),
       'reject':(.70,.12,.27,.17,'Rejected candidate\nKeep previous model','#fae8e3')},
-      [('input','api',''),('api','db',''),('api','score',''),('score','update',''),('update','gate',''),('gate','accept','PASS'),('gate','reject','FAIL')],(11,6))
+      [('input','api',''),('api','db',''),('api','score',''),('score','update',''),('update','gate',''),('gate','accept','PASS / AUDIT-ONLY'),('gate','reject','FAIL + GATED')],(11,6))
     # Full numerical results and event logs, without the source dataset or private conversation.
     with zipfile.ZipFile(OUT/'replication_results.zip','w',zipfile.ZIP_DEFLATED) as z:
         for p in (ROOT/'data/prepared').glob('results-*.json'):z.write(p,p.name)

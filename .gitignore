@@ -42,3 +42,4 @@ dist/
 .wrangler/
 .local/
 *.tar.gz
+.pages/

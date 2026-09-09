@@ -88,7 +88,7 @@ Local runtime wall times include prediction, detector work, candidate training, 
 6. Primary-seed gated candidate ECI and anchor log-loss changes. Green circles accepted; red crosses rejected. Dashed thresholds are predefined policy thresholds.
 7. Primary-seed correct classification by family, with test support counts. Small classes are descriptive only.
 8. Public-data experimental workflow, including disjoint preprocessing, model-selection, and evaluation stages.
-9. Live deployment architecture. Browser measurements reach the actual model API; each session has its own model, candidate checks, and database audit chain.
+9. Live deployment architecture. GitHub Pages serves static files; a browser Web Worker executes the shared model engine on submitted measurements. Candidate checks compare fixed validation anchors, and IndexedDB stores the local model and audit chain. Passing candidates, or flagged candidates under audit-only policy, activate; failed candidates under gated policy are discarded. Browser-controlled records require a separately trusted chain head for independent evidence. The optional HTTP/D1 implementation remains in the repository but is not required by this deployed lab.
 
 All nine figures are supplied in vector PDF/SVG and 300-DPI PNG. Editing source: research/report.py.
 

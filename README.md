@@ -2,9 +2,23 @@
 
 Working research software for inspecting how network-risk models adapt and what evidence they leave.
 
-**[Live research site](https://drifttrust-audit-lab.pipratools.chatgpt.site/) · [Try the actual model](https://drifttrust-audit-lab.pipratools.chatgpt.site/lab.html) · [GitHub Pages](https://the-sudipta.github.io/drifttrust_audit/)**
+**[Live research site](https://the-sudipta.github.io/drifttrust_audit/) · [Try the actual model](https://the-sudipta.github.io/drifttrust_audit/lab.html) · [GitHub Pages](https://the-sudipta.github.io/drifttrust_audit/)**
 
-The public-data backend runs actual inference, incremental updates, explanation-consistency checks, and audit recording. Each lab visitor gets an isolated database-backed model session. The old hand-written browser risk formula has been removed.
+The public-data backend runs actual inference, incremental updates, explanation-consistency checks, and audit recording. The GitHub Pages lab runs the same engine in a browser Web Worker, with model state and records in local IndexedDB. Other tabs in the same browser profile share the session; no model input is posted to the former hosted API. The old hand-written browser risk formula has been removed.
+
+## Execution and explanations
+
+The primary lab is now hosted on GitHub Pages. It performs actual trained inference, incremental SGD, drift checks and candidate governance in the browser. `runtime/worker.mjs` remains an optional HTTP/D1 server implementation; the current UI uses `runtime/browser-client.mjs` and `runtime/browser-worker.mjs` instead. Local records are browser-controlled evidence, not independently trusted server logs.
+
+[Full interactive code guide](guide.html) explains nine modules and every interface control. The lab explains all twelve features, exact score arithmetic, chart points, detector eligibility and each audit check. **Accepted/rejected counts refer to proposed model versions, not users or flows.** On the compact gated replay, 7 candidates produce 4 activations and 3 discards.
+
+Local GitHub Pages preview:
+
+```sh
+pnpm build:pages
+pnpm dev:pages
+# http://localhost:8788/drifttrust_audit/lab.html
+```
 
 ## Public dataset and measured results
 
@@ -77,7 +91,7 @@ Use single-flow inference, actual held-out replay, or a compatible CSV stream wi
 node scripts/verify-audit.mjs downloaded-session-audit.json
 ```
 
-[API, storage, privacy and deployment guide](assets/research/DEPLOYMENT.md). GitHub Pages serves the evidence page; its lab links lead to the server-backed deployment.
+[Execution, storage, privacy and deployment guide](assets/research/DEPLOYMENT.md). GitHub Pages serves both the evidence page and the working browser lab. The optional HTTP server can also be exercised with the API checks above.
 
 ## Structure
 
@@ -103,3 +117,14 @@ Production identity, collection and enforcement integration, external datasets, 
 The original Python prototype remains available through `python main.py` and its original `requirements.txt`. It uses simulated 11-feature temporal windows and the opposite label convention (1 = legitimate). It is not used for the new public-data results. Old files in `assets/showcase/` and historical `informations/` describe that earlier experiment; their reported values must not be combined with this study.
 
 MIT license for code. RT-IoT2022 data and derived example rows retain CC BY 4.0 attribution. See LICENSE and CITATION.cff.
+
+## Browser verification
+
+`tests/browser-pages.cjs` exercises the GitHub Pages UI using Playwright: both complete replays, actual example predictions, pause, CSV feedback/no-feedback, rejection arithmetic, audit export/verification, persistence, browser-profile isolation and responsive overflow. Provide an installed `playwright` module (or its path in `PLAYWRIGHT_MODULE`), and optionally a browser executable in `BROWSER_EXECUTABLE`.
+
+```sh
+node tests/browser-pages.cjs http://localhost:8788/drifttrust_audit/
+# Or pass https://the-sudipta.github.io/drifttrust_audit/
+```
+
+Outputs go to ignored `.local/`. The test creates its own disposable browser context. [Complete explanation PDF](assets/research/learning/DriftTrust_learning_dossier.pdf) and [Word dossier](assets/research/learning/DriftTrust_learning_dossier.docx) accompany the offline fieldbook.
