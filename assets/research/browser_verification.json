@@ -1,0 +1,41 @@
+{
+  "base": "https://the-sudipta.github.io/drifttrust_audit/",
+  "checked_at_utc": "2026-09-09T13:07:02.724Z",
+  "passed": true,
+  "execution": "browser Web Worker + IndexedDB",
+  "audit_only": {
+    "flows": 1280,
+    "candidates": 5,
+    "activated": 5,
+    "discarded": 0
+  },
+  "gated": {
+    "flows": 1280,
+    "candidates": 7,
+    "activated": 4,
+    "discarded": 3
+  },
+  "checks": [
+    "dynamic metric explanations",
+    "nine figure explanations",
+    "12 feature definitions",
+    "actual initial model outputs",
+    "edited-input correctness notice",
+    "all 12 contributions",
+    "detector explanations",
+    "pause after current replay request",
+    "full replay in both policies",
+    "numerical rejection explanation",
+    "local chart persistence",
+    "browser-profile isolation",
+    "audit chain verification and export",
+    "unlabelled and labelled CSV",
+    "invalid CSV atomic rejection",
+    "responsive overflow"
+  ],
+  "api_or_form_posts": 0,
+  "runtime_errors": [],
+  "verified_source_commit": "0846eff692b1bfda6a47ed215228e9f9a25a1b1a",
+  "publication_workflow": "https://github.com/the-sudipta/drifttrust_audit/actions/runs/34354962335",
+  "scope": "Recorded end-to-end checks against the public GitHub Pages site. This is a point-in-time functional verification, not a security certification or continuous monitor."
+}
