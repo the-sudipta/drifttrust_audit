@@ -1,0 +1,145 @@
+{
+  "schema": "drifttrust-neuron-focus-verification-v1",
+  "tested_source_commit": "6ec225653c21acc25f3d700c62afa56db1f1b38a",
+  "recorded_at_utc": "2026-09-10T05:46:39.033Z",
+  "scope": "Public Edge/Chromium browser checks; local UI selection and signed logit terms, not causal importance. Follow-up evidence commits do not change the tested runtime.",
+  "unit_tests": {
+    "passed": 12,
+    "command": "node --test tests/*.test.mjs"
+  },
+  "animation_browser": {
+    "base": "https://the-sudipta.github.io/drifttrust_audit/",
+    "checked_at_utc": "2026-09-10T05:45:19.718Z",
+    "passed": true,
+    "checks": [
+      "automatic H16/H10 focus for the supplied examples",
+      "all 24 signed output edges and chart terms with separate bias",
+      "manual inspection of every neuron preserves predictions",
+      "manual choice persists across runs, playback and model variants",
+      "automatic ranking recomputes for each model variant",
+      "contribution bar keyboard focus and manual selection",
+      "actual single-flow arithmetic and 12–24–1 network",
+      "all input/output terms",
+      "keyboard neuron inspection and focus retention",
+      "expanded equations survive re-render",
+      "play/pause/replay/arrows/timeline/speed",
+      "three captured SGD steps play in order",
+      "all four parameter types reconstruct updates",
+      "before/candidate/retained numerical comparison",
+      "rejected candidate retains exact previous weights",
+      "audit-only activation explicitly shows failed checks",
+      "full-precision numerical trace export",
+      "playback does not change session revision",
+      "trace persistence and reset",
+      "system and manual reduced motion",
+      "1440/820/390 layouts and 200% text sizing"
+    ],
+    "runtime_errors": []
+  },
+  "existing_lab_browser": {
+    "base": "https://the-sudipta.github.io/drifttrust_audit/",
+    "checked_at_utc": "2026-09-10T05:45:17.002Z",
+    "passed": true,
+    "execution": "browser Web Worker + IndexedDB",
+    "audit_only": {
+      "flows": 1280,
+      "candidates": 5,
+      "activated": 5,
+      "discarded": 0
+    },
+    "gated": {
+      "flows": 1280,
+      "candidates": 7,
+      "activated": 4,
+      "discarded": 3
+    },
+    "checks": [
+      "dynamic metric explanations",
+      "nine figure explanations",
+      "12 feature definitions",
+      "actual initial model outputs",
+      "edited-input correctness notice",
+      "all 12 contributions",
+      "detector explanations",
+      "pause after current replay request",
+      "full replay in both policies",
+      "numerical rejection explanation",
+      "local chart persistence",
+      "browser-profile isolation",
+      "audit chain verification and export",
+      "unlabelled and labelled CSV",
+      "invalid CSV atomic rejection",
+      "responsive overflow"
+    ],
+    "api_or_form_posts": 0,
+    "runtime_errors": []
+  },
+  "fieldbook_and_assets": {
+    "base": "https://the-sudipta.github.io/drifttrust_audit/",
+    "checked_at_utc": "2026-09-10T05:45:04.664Z",
+    "passed": true,
+    "fieldbook_modules": 9,
+    "new_control_glossary_rows": 36,
+    "assets": {
+      "lab.html": {
+        "status": 200,
+        "sha256": "2eac4a09350f2e7364e3429b7178e570315c5a343cafaca9729e4460cef86e30"
+      },
+      "lab.mjs": {
+        "status": 200,
+        "sha256": "bfcd40ccc13923b4f2bd2be33886e0fde080a3dd436ab240f4e30f812f29caa3"
+      },
+      "math-theatre.mjs": {
+        "status": 200,
+        "sha256": "73772b005fb316e14b9c0ee2b5d6f824f60089f2b855c3e801bd7717fee2ebac"
+      },
+      "math-theatre.css": {
+        "status": 200,
+        "sha256": "70769c06b42fc765a3623410c8e4628cf7cb0497bdee8e7fb3a68a994d952d73"
+      },
+      "runtime/engine.mjs": {
+        "status": 200,
+        "sha256": "6da6690a50e41d2c24d515f6d1ee4ddd540e40d8b71ea0f6c9dadd07f958f5b1"
+      },
+      "runtime/math-trace.mjs": {
+        "status": 200,
+        "sha256": "cf2bb22ec96ca3ce23912de75ed351d02335484e8fe53607e2df9f8c9d759e7f"
+      },
+      "runtime/browser-worker.mjs": {
+        "status": 200,
+        "sha256": "0e16cfcb4fa173fd1da4c0b3f667d92f02c92eb29a0d46cca899c3186dc56768"
+      },
+      "assets/research/MATH_ANIMATIONS.md": {
+        "status": 200,
+        "sha256": "2cdae927a434b4825cc95fcbe0c08ac1e20171530ee469e1c0813bb1472a4c71"
+      },
+      "guide.html": {
+        "status": 200,
+        "sha256": "7919d73013350b9cd4719a179c02207a8b2387c87861660a6e5070754e0cdb5d"
+      },
+      "index.html": {
+        "status": 200,
+        "sha256": "20d2a1a38ae926e2d72a56c2d94415672349db3c7a464b682e3a6bb8e4a22f9e"
+      }
+    },
+    "runtime_errors": []
+  },
+  "layout_test_scope": "1440/820/390 CSS-pixel viewports and 200% root-font setting; not a complete accessibility or cross-browser audit.",
+  "ci": [
+    {
+      "name": "Pages",
+      "conclusion": "success",
+      "url": "https://github.com/the-sudipta/drifttrust_audit/actions/runs/34442243050"
+    },
+    {
+      "name": "Engine",
+      "conclusion": "success",
+      "url": "https://github.com/the-sudipta/drifttrust_audit/actions/runs/34442243135"
+    },
+    {
+      "name": "Python",
+      "conclusion": "success",
+      "url": "https://github.com/the-sudipta/drifttrust_audit/actions/runs/34442243136"
+    }
+  ]
+}

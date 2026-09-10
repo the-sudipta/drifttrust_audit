@@ -1,5 +1,21 @@
 # Public animation verification
 
+## Automatic and manual neuron focus update
+
+Verified public application source [6ec2256](https://github.com/the-sudipta/drifttrust_audit/commit/6ec225653c21acc25f3d700c62afa56db1f1b38a) on 10 September 2026. [Current focus verification record](../neuron_focus_verification.json) includes both complete browser suites, 12 passing numerical tests, three successful GitHub workflows and deployed source hashes. All checks passed without browser runtime errors. The updated fieldbook contains 36 control/visual glossary entries.
+
+Automatic focus selects H16 for initial-model Slowloris row 20635 and H10 for SSH row 115485. All 24 signed output connections participate and their chart includes bias separately. Every neuron remains manually inspectable: selection preserves prediction values, persists across runs/playback/model variants, and returns to the previous manual choice after switching through Automatic mode. Reload starts in Automatic mode. Numerical ranking tests also cover exact ties, zero terms and exclusion of bias.
+
+![Automatic focus on H10 with all output contributions visible](automatic-neuron-focus.png)
+
+Caption: Initial-model SSH row 115485, at the Attack score stage. H10 is selected because its activation × output-weight term has the largest absolute magnitude, approximately +1.80987. The inspector ring highlights H10 while all 24 output terms feed sigmoid. Positive output contributions are teal and negative contributions violet; neuron colour still denotes activation sign.
+
+![All 24 signed hidden-neuron contributions and separate output bias](signed-neuron-contributions.png)
+
+Caption: The same flow's additive logit terms, with a common symmetric scale and explicit zero for each bar. The 24 terms sum to approximately 4.13068; adding bias −0.56662 gives logit 3.56406 and attack score 0.972456. These are logit contributions, not probability percentages. Teal outlining marks the inspected neuron; a gold focus outline can mark the keyboard-focused control. Each neuron bar opens its existing equations in Manual mode.
+
+## Initial animation release
+
 Tested against the actual [GitHub Pages deployment](https://the-sudipta.github.io/drifttrust_audit/lab.html#mathTheatre) on 10 September 2026, using isolated Edge/Chromium browser profiles and published UCI example/replay data.
 
 Tested application source: [2d88dbd](https://github.com/the-sudipta/drifttrust_audit/commit/2d88dbd19ca04ac481f483da8f3a800f96395775). Later evidence-only commits add this report and artifacts without changing that runtime. The [machine-readable report](../math_animation_verification.json) includes deployed asset hashes, timestamps, checks and CI links.

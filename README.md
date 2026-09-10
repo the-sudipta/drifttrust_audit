@@ -127,6 +127,8 @@ MIT license for code. RT-IoT2022 data and derived example rows retain CC BY 4.0 
 
 ## Browser verification
 
+Automatic/manual neuron focus and all 24 signed contributions passed the public browser checks at source `6ec2256`: [latest verification](assets/research/neuron_focus_verification.json). All 12 numerical tests and three GitHub workflows passed. The screenshots and control guide include the updated behavior.
+
 The deployed animated lab passed both browser suites at source commit `2d88dbd`. [Public verification, screenshots and exported numerical witness](assets/research/animation/README.md) · [Machine-readable test report](assets/research/math_animation_verification.json).
 
 `tests/math-trace.test.mjs` proves tracing preserves the complete compact replay in both policies and independently checks all 337 parameters in each captured SGD step. `tests/browser-math.cjs` exercises animation controls, keyboard focus, real arithmetic, all parameter types, three-step playback, rejection/activation, local export/persistence, reset, reduced motion and responsive layouts. Run it against a local preview or the public base URL, using the runtime overrides below.
