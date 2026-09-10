@@ -125,6 +125,8 @@ MIT license for code. RT-IoT2022 data and derived example rows retain CC BY 4.0 
 
 ## Browser verification
 
+The deployed animated lab passed both browser suites at source commit `2d88dbd`. [Public verification, screenshots and exported numerical witness](assets/research/animation/README.md) · [Machine-readable test report](assets/research/math_animation_verification.json).
+
 `tests/math-trace.test.mjs` proves tracing preserves the complete compact replay in both policies and independently checks all 337 parameters in each captured SGD step. `tests/browser-math.cjs` exercises animation controls, keyboard focus, real arithmetic, all parameter types, three-step playback, rejection/activation, local export/persistence, reset, reduced motion and responsive layouts. Run it against a local preview or the public base URL, using the runtime overrides below.
 
 `tests/browser-pages.cjs` exercises the GitHub Pages UI using Playwright: both complete replays, actual example predictions, pause, CSV feedback/no-feedback, rejection arithmetic, audit export/verification, persistence, browser-profile isolation and responsive overflow. Provide an installed `playwright` module (or its path in `PLAYWRIGHT_MODULE`), and optionally a browser executable in `BROWSER_EXECUTABLE`.

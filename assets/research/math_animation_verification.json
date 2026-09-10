@@ -1,0 +1,140 @@
+{
+  "schema": "drifttrust-animation-verification-v1",
+  "tested_source_commit": "2d88dbd19ca04ac481f483da8f3a800f96395775",
+  "source_url": "https://github.com/the-sudipta/drifttrust_audit/commit/2d88dbd19ca04ac481f483da8f3a800f96395775",
+  "recorded_at_utc": "2026-09-10T05:17:10.154Z",
+  "scope": "Automated checks of the deployed browser research software; not independent security or research validation. Follow-up commits publish this record without changing the tested runtime.",
+  "unit_tests": {
+    "passed": 11,
+    "command": "node --test tests/*.test.mjs"
+  },
+  "animation_browser": {
+    "base": "https://the-sudipta.github.io/drifttrust_audit/",
+    "checked_at_utc": "2026-09-10T05:14:58.858Z",
+    "passed": true,
+    "checks": [
+      "actual single-flow arithmetic and 12–24–1 network",
+      "all input/output terms",
+      "keyboard neuron inspection and focus retention",
+      "expanded equations survive re-render",
+      "play/pause/replay/arrows/timeline/speed",
+      "three captured SGD steps play in order",
+      "all four parameter types reconstruct updates",
+      "before/candidate/retained numerical comparison",
+      "rejected candidate retains exact previous weights",
+      "audit-only activation explicitly shows failed checks",
+      "full-precision numerical trace export",
+      "playback does not change session revision",
+      "trace persistence and reset",
+      "system and manual reduced motion",
+      "1440/820/390 layouts and 200% text sizing"
+    ],
+    "runtime_errors": []
+  },
+  "existing_lab_browser": {
+    "base": "https://the-sudipta.github.io/drifttrust_audit/",
+    "checked_at_utc": "2026-09-10T05:14:57.865Z",
+    "passed": true,
+    "execution": "browser Web Worker + IndexedDB",
+    "audit_only": {
+      "flows": 1280,
+      "candidates": 5,
+      "activated": 5,
+      "discarded": 0
+    },
+    "gated": {
+      "flows": 1280,
+      "candidates": 7,
+      "activated": 4,
+      "discarded": 3
+    },
+    "checks": [
+      "dynamic metric explanations",
+      "nine figure explanations",
+      "12 feature definitions",
+      "actual initial model outputs",
+      "edited-input correctness notice",
+      "all 12 contributions",
+      "detector explanations",
+      "pause after current replay request",
+      "full replay in both policies",
+      "numerical rejection explanation",
+      "local chart persistence",
+      "browser-profile isolation",
+      "audit chain verification and export",
+      "unlabelled and labelled CSV",
+      "invalid CSV atomic rejection",
+      "responsive overflow"
+    ],
+    "api_or_form_posts": 0,
+    "runtime_errors": []
+  },
+  "fieldbook_and_assets": {
+    "base": "https://the-sudipta.github.io/drifttrust_audit/",
+    "checked_at_utc": "2026-09-10T05:15:29.980Z",
+    "passed": true,
+    "fieldbook_modules": 9,
+    "new_control_glossary_rows": 31,
+    "assets": {
+      "lab.html": {
+        "status": 200,
+        "sha256": "2eac4a09350f2e7364e3429b7178e570315c5a343cafaca9729e4460cef86e30"
+      },
+      "lab.mjs": {
+        "status": 200,
+        "sha256": "bfcd40ccc13923b4f2bd2be33886e0fde080a3dd436ab240f4e30f812f29caa3"
+      },
+      "math-theatre.mjs": {
+        "status": 200,
+        "sha256": "ab2b1c2deddcdb5a191fd3bb8f29d52740b2ed8dcee114a9cfdc085d010b1961"
+      },
+      "math-theatre.css": {
+        "status": 200,
+        "sha256": "6cefa72e9c84d91cd878400db83ed55379b222d6772dabd70141e88bd13b6850"
+      },
+      "runtime/engine.mjs": {
+        "status": 200,
+        "sha256": "6da6690a50e41d2c24d515f6d1ee4ddd540e40d8b71ea0f6c9dadd07f958f5b1"
+      },
+      "runtime/math-trace.mjs": {
+        "status": 200,
+        "sha256": "d6356eb1bed7dc7d9e3c3cfb0ca0b92dfd95ce5e869fb508930138d26c255b83"
+      },
+      "runtime/browser-worker.mjs": {
+        "status": 200,
+        "sha256": "0e16cfcb4fa173fd1da4c0b3f667d92f02c92eb29a0d46cca899c3186dc56768"
+      },
+      "assets/research/MATH_ANIMATIONS.md": {
+        "status": 200,
+        "sha256": "83edaab080c229cb373c5af3c2de79dc9f1ceb32689fe0d44604428010fdef31"
+      },
+      "guide.html": {
+        "status": 200,
+        "sha256": "0f78e18507d5d0b50d696d7186d719220de3ae0cbba967f2e316eb352556394d"
+      },
+      "index.html": {
+        "status": 200,
+        "sha256": "0549e26947f00f0f2f7d751af76eaeff205344171646216b37579c7521ebd807"
+      }
+    },
+    "runtime_errors": []
+  },
+  "layout_test_scope": "1440, 820 and 390 CSS-pixel viewports; additional html font-size:200% setting. This is not a complete accessibility audit or a test of every browser zoom implementation.",
+  "ci": [
+    {
+      "name": "Pages build and deploy",
+      "url": "https://github.com/the-sudipta/drifttrust_audit/actions/runs/34440194887",
+      "conclusion": "success"
+    },
+    {
+      "name": "Public-data engine checks",
+      "url": "https://github.com/the-sudipta/drifttrust_audit/actions/runs/34440194945",
+      "conclusion": "success"
+    },
+    {
+      "name": "Python Smoke Check",
+      "url": "https://github.com/the-sudipta/drifttrust_audit/actions/runs/34440194865",
+      "conclusion": "success"
+    }
+  ]
+}
