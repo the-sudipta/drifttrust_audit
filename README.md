@@ -14,6 +14,8 @@ The primary lab is now hosted on GitHub Pages. It performs actual trained infere
 
 **[Animated model mathematics](https://the-sudipta.github.io/drifttrust_audit/lab.html#mathTheatre)** shows the actual 12–24–1 network, boxed forward equations, captured SGD steps and candidate decisions. Start a session, then press **Animate selected flow**. Use Dataset replay to capture learning; inspect Candidate #7 in gated mode to see why its weights were discarded. Playback reads captured values and never retrains. **[Complete animation and code-flow guide](assets/research/MATH_ANIMATIONS.md)** covers every new control, equation, sampling rule and export.
 
+Neuron focus now defaults to the largest absolute `hidden activation × output weight` for the selected forward pass. All 24 output connections remain visible; the signed contribution chart includes a separate bias. Click any neuron/bar or choose H1–H24 to enter Manual inspection and preserve that choice across playback, new runs and model comparisons. Switch back to Automatic to follow the largest term. The model always uses all 24 neurons; focus never changes predictions or training.
+
 Local GitHub Pages preview:
 
 ```sh

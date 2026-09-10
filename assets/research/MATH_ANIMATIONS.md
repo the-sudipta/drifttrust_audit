@@ -6,7 +6,7 @@ Added 10 September 2026. [Open the animated lab](https://the-sudipta.github.io/d
 
 1. Choose **Gated** and press **Start / reset model session** above the dark animation panel. This creates actual, initially trained weights in this browser. Reset replaces the existing session, so export anything you need first.
 2. Press **Animate selected flow**. The initial example is a held-out MQTT flow. Watch twelve measured inputs feed twenty-four hidden neurons, one attack output, and the trust equation. **Choose a flow below** goes to the input form; it does not submit it. Run actual inference there has the same computation as the animation button.
-3. Pause, select an input and a hidden neuron, and expand the weighted sums. The boxes contain the actual numbers for that captured inference. A high score can still be wrong: an unedited labelled example shows whether it was correctly classified. Edited inputs have unknown correctness.
+3. Automatic focus selects the neuron with the largest absolute activation × output-weight term. All 24 neurons still participate. Pause, select any input and hidden neuron, and expand its weighted sums exactly as before. Choosing a neuron switches to Manual inspection and keeps your choice across playback, new captures and model comparisons. A high score can still be wrong: an unedited labelled example shows whether it was correctly classified. Edited inputs have unknown correctness.
 4. Open **Dataset replay**, then **Run remaining replay**. The engine predicts each batch before receiving its labels. Eligible drift evidence causes real candidate training. The animation captures the calculation, then slows it for inspection.
 5. Choose **Candidate #7** in **Captured calculation** after the gated replay. Select **Learn a candidate**, **Compare models**, and **Policy decision**. Its new weights fail the anchor-loss check; the previous weights remain active. Export its numerical trace or inspect the corresponding AJR below.
 6. To compare policies, create a fresh **Audit-only** session and replay again. This policy activates candidates even when checks flag them. The animation explicitly says **ACTIVATED WITH FLAGS** in those cases.
@@ -22,19 +22,24 @@ The default checkpoint and compact 1,280-flow replay produce 7 candidates / 4 ac
 | Choose a flow below ↓ | Navigates to the existing Single flow form. Held-out examples fill all twelve fields; editing them produces a user-supplied vector. |
 | Captured calculation | Selects a prior inference, streamed probe, or candidate snapshot. Its title identifies the source or attempt. Selecting history never retrains. |
 | Capture timestamp | Device-clock time of the recorded operation. Historical snapshots do not claim to be the current model. |
+| Neuron focus: Automatic | Recomputes the largest absolute hidden activation × output weight for the selected flow and forward-pass model. This is a signed contribution to the pre-sigmoid total (logit), not a percentage or causal importance. Bias is excluded from neuron selection. Exact ties choose the lowest neuron number and are disclosed. |
+| Neuron focus: Manual inspection | Keeps the selected neuron across playback, new runs, history selections, resets and model comparisons in this tab. Selecting any network neuron, contribution bar or Hidden neuron dropdown enters Manual mode. Switching back from Automatic restores your last manual choice. Reload starts in Automatic mode; no model state is affected. |
 | Replay ↺ | Starts explanation playback from the beginning of the selected capture. This is separate from Dataset replay, which processes traffic. |
 | Play / Pause | Starts or stops explanation stages. No weights, labels, session revision, or scientific counters change. Selecting a neuron, input, equation disclosure or model pauses playback for inspection. |
 | ← / → | Moves one explanation stage backward/forward. Disabled at the corresponding end. |
 | Speed | 0.5×, 1× or 2× explanation pace; does not change inference speed, learning rate, or SGD. |
 | Reduced motion | Removes motion effects and prevents automatic playback of new captures. Follows the system setting initially. Explicit Play can still advance stages without animation effects. |
 | Glowing network | Shows actual mathematical connectivity. Twelve input-to-hidden products feed each selected neuron; all twenty-four activations feed the output. Moving dashes indicate dependencies, not captured packets or measured wall-clock execution. |
-| Teal / violet | Positive / negative input, activation, or edge weight. Sign is not a benign/attack class. Brightness represents activation magnitude; selected connections are emphasized. |
+| Teal / violet | Nodes encode the sign of transformed inputs/activations; incoming edges encode weight sign. Output edges and chart bars encode the sign of activation × output weight. Positive output terms push the attack score up, negative terms push it down. A negative activation multiplied by a negative weight makes a positive contribution. |
+| All 24 output edges | All remain visible and animate together during the Attack score stage. Thickness represents absolute logit contribution; the inspection ring does not mark the only participating neuron. Node brightness still represents activation magnitude, which differs from output contribution. |
 | Slanted translucent planes | Visual separation and depth for the layers. They do not add model layers or computations. |
 | Input node / hidden node | Click or use keyboard Enter/Space to inspect its real values. The labelled dropdowns provide equivalent access. H1–H24 index hidden units; they have no assigned semantic classes. |
 | Step buttons 01–07 | Jump to preprocessing, hidden calculation, attack score, trust score, learning, comparison, or governance. Inference-only captures have four stages because no training happened. |
 | Calculation step slider | Scrubs the same discrete explanation stages. It is not a training-history time axis. |
 | Input to inspect | Selects one measured feature and its weight into the selected hidden neuron. All twelve still participate in prediction. |
-| Hidden neuron | Selects H1–H24. Its sum includes all twelve inputs, regardless of the highlighted input. |
+| Hidden neuron | Selects any of H1–H24 and enters Manual inspection. Its sum includes all twelve inputs, regardless of the highlighted input. The 24 neurons belong to one hidden layer; the diagram's two columns do not represent two layers. |
+| Every contribution chart | Displays all 24 signed activation × output-weight terms in neuron order. All bars share a symmetric scale; each bar has a centre-zero marker and a signed numerical label. Click any bar or use Enter/Space to inspect that neuron. The selected outline follows Manual/Automatic focus; largest-magnitude terms receive an explicit badge. |
+| Separate Bias row and total | Shows the output bias on the same scale, separately from the 24 neurons. Their sum plus bias equals the logit sent to sigmoid. Bias is not clickable because it is not a hidden neuron. Zero terms have zero-length bars; an all-zero chart uses a finite ±1 display scale. |
 | Forward-pass model | Chooses original, candidate, or retained weights for the same probe flow. Candidate/retained options require a candidate capture. These rescored values are diagnostic comparisons, not replacements for the observed pre-feedback prediction. |
 | Number boxes | Label above, real numerical endpoint below. Display rounds to six decimal places or scientific notation; hover shows full values where provided, and export retains full precision. A reveal/colour flash marks the result or updated parameter; intermediate invented weights are never displayed. |
 | Expand all 12 input products | Lists each transformed input, selected neuron's weight, and their product. Sum all twelve and add the hidden bias. |
@@ -50,6 +55,8 @@ The default checkpoint and compact 1,280-flow replay produce 7 candidates / 4 ac
 | Ready / disabled controls | No real capture exists yet, or that action is unavailable for the selected capture. No placeholder computation is presented as an observation. |
 
 On a phone, controls and equations stack and the network has a labelled horizontal scroll region. Use the dropdowns to inspect every neuron without scrolling the diagram. Keyboard focus survives diagram updates; open equation tables remain open when values change.
+
+The original H1 selection was only an inspector default. For the initial checkpoint, Slowloris row 20635 now automatically focuses H16 (logit term approximately −1.36109), while SSH brute-force row 115485 focuses H10 (approximately +1.80987). These choices can change when model weights or inputs change. Automatic focus is based on the currently selected forward-pass snapshot, not on the gradient of the separate sampled SGD training row.
 
 ## The exact equations
 

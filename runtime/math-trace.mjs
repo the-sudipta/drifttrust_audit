@@ -1,5 +1,12 @@
 /** Read-only arithmetic witnesses. No training, state mutation or display interpolation. */
 import {transform,forward,clone} from './engine.mjs';
+/** Exact additive logit terms; deterministic lowest-index tie break, no causal claim. */
+export function logitContributions(trace){
+ const terms=trace.hidden.map((h,k)=>h*trace.model.w2[k]);
+ const maximum=Math.max(...terms.map(Math.abs));
+ const ties=terms.flatMap((v,k)=>Math.abs(v)===maximum?[k]:[]);
+ return {terms,strongest:ties[0],ties,bias:trace.model.b2,sum:terms.reduce((s,v)=>s+v,0),extent:Math.max(maximum,Math.abs(trace.model.b2))||1};
+}
 export function forwardTrace(bundle,model,raw){
  const x=transform(bundle,raw),{p,hidden}=forward(model,x);
  const hidden_terms=model.b1.map((_,k)=>x.map((v,j)=>v*model.w1[j][k]));

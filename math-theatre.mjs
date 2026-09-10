@@ -1,4 +1,4 @@
-import {parameterStep} from './runtime/math-trace.mjs';
+import {parameterStep,logitContributions} from './runtime/math-trace.mjs';
 import {decisionExplanation,featureGuide} from './explanations.mjs';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=x=>typeof x!=='number'?'—':x!==0&&(Math.abs(x)<.0001||Math.abs(x)>999999)?x.toExponential(5):x.toFixed(6);
@@ -7,15 +7,17 @@ const stages=['Prepare inputs','Hidden neuron','Attack score','Trust score','Lea
 
 export class MathTheatre {
  constructor(root){
-  this.root=root;this.items=[];this.current=null;this.stage=0;this.neuron=0;this.feature=0;this.variant='before';this.timer=null;this.meta=null;
+  this.root=root;this.items=[];this.current=null;this.stage=0;this.neuron=0;this.manualNeuron=null;this.focusMode='auto';this.feature=0;this.variant='before';this.timer=null;this.meta=null;
   root.innerHTML=`<div class="math-top"><div><p class="math-kicker">INSIDE DRIFTTRUST · 12 → 24 → 1</p><h2>A prediction you can follow.</h2><p>Explore the network. Open its equations. Watch a proposed model meet the gate.</p></div><div class="math-launch"><button id="mathRun" disabled>Animate selected flow ↗</button><a class="math-input-link" href="#single">Choose a flow below ↓</a></div></div>
    <div class="math-toolbar"><label class="math-history">Captured calculation<select id="mathHistory" disabled><option>No calculation captured yet</option></select></label><div class="math-playback"><button id="mathReplay" aria-label="Replay calculation from the beginning" disabled>↺ Replay</button><button id="mathPrevious" aria-label="Previous calculation step" disabled>←</button><button id="mathPlay" disabled>▶ Play</button><button id="mathNext" aria-label="Next calculation step" disabled>→</button></div><label>Speed<select id="mathSpeed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label class="math-motion"><input id="mathReduced" type="checkbox"> Reduced motion</label></div>
    <p id="mathCapture" class="math-caption">Start a session, then run Single flow or Dataset replay. Each animation uses an actual captured calculation.</p>
+   <div class="math-focus-toolbar"><label>Neuron focus<select id="mathFocusMode"><option value="auto">Automatic · largest |activation × output weight|</option><option value="manual">Manual inspection · keep my neuron</option></select></label><p id="mathFocusMeaning" aria-live="polite">All 24 neurons participate. Automatic focus will explain the largest absolute logit contribution once a calculation is captured.</p></div>
    <div class="math-scene-scroll" tabindex="0" role="region" aria-label="Interactive neural network; scroll horizontally on narrow screens"><svg id="mathNetwork" role="group" viewBox="0 0 1120 420" aria-label="Twelve inputs, twenty-four hidden neurons, one sigmoid output"></svg></div>
-   <div class="math-legend"><span><i class="positive"></i> Positive value</span><span><i class="negative"></i> Negative value</span><span>Node brightness = activation magnitude</span><span>Selected connections reveal their weights</span></div>
+   <div class="math-legend"><span><i class="positive"></i> Positive</span><span><i class="negative"></i> Negative</span><span>Nodes: activation · incoming edges: weight</span><span>Output edges: signed contribution; thickness = magnitude</span><span>Ring = inspected neuron; all 24 feed the output</span></div>
    <div id="mathStages" class="math-stages"></div><label class="math-scrub">Calculation step<input id="mathScrub" type="range" min="0" max="3" value="0" disabled></label>
    <div class="math-narration" aria-live="polite"><span id="mathStepNumber">READY</span><h3 id="mathStepTitle">Your measurements become the next calculation.</h3><p id="mathNarration">The same trained network powers the lab and this view. No illustrative weights are substituted.</p></div>
    <div class="math-inspect-controls"><label>Input to inspect<select id="mathFeature"></select></label><label>Hidden neuron<select id="mathNeuron"></select></label><label>Forward-pass model<select id="mathVariant"><option value="before">Observed / before update</option><option value="candidate">Candidate · diagnostic rescore</option><option value="active">Retained · diagnostic rescore</option></select></label></div>
+   <section id="mathContributions" class="math-contributions" hidden aria-labelledby="mathContributionsTitle"><p class="math-kicker">24 NEURONS · ONE HIDDEN LAYER</p><h3 id="mathContributionsTitle">Every contribution to the final sum.</h3><p class="math-caption">Each term is activation × output weight. Negative terms push the attack score down; positive terms push it up. These are signed logit terms, not percentages or causal importance. Click any bar to inspect that neuron.</p><div class="math-contribution-axis"><span>← Negative</span><span>Each bar: centre = 0</span><span>Positive →</span></div><div id="mathContributionBars" class="math-contribution-bars"></div><div id="mathContributionBias" class="math-contribution-bias"></div><p id="mathContributionTotal" class="math-caption"></p></section>
    <div id="mathEquations" class="math-equations"><p class="math-empty">A measured input will reveal the live equations here.</p></div>
    <section id="mathLearning" class="math-learning" hidden><div class="math-subhead"><div><p class="math-kicker">CAPTURED INSIDE SGD</p><h3>One parameter. One real update.</h3></div><div class="math-learning-controls"><label>Captured training step<select id="mathEpoch"></select></label><label>Parameter<select id="mathParameter"><option value="w1">Input → hidden weight</option><option value="b1">Hidden bias</option><option value="w2">Hidden → output weight</option><option value="b2">Output bias</option></select></label></div></div><p id="mathSampling" class="math-caption"></p><div id="mathSGD"></div></section>
    <section id="mathComparison" hidden><div class="math-subhead"><div><p class="math-kicker">IDENTICAL FLOW · DIFFERENT WEIGHTS</p><h3>What changed? What stayed active?</h3></div></div><div id="mathModels" class="math-models"></div><p class="math-caption">Candidate and retained values rescore this same flow for comparison. They do not replace its original, pre-feedback prediction.</p><div id="mathGate" class="math-gate"></div></section>
@@ -26,7 +28,8 @@ export class MathTheatre {
   this.$('mathReduced').checked=matchMedia('(prefers-reduced-motion: reduce)').matches;
   this.$('mathReduced').onchange=()=>{this.pause();this.render()};
   this.$('mathHistory').onchange=()=>this.select(this.$('mathHistory').value,false);
-  this.$('mathNeuron').onchange=()=>{this.pause();this.neuron=Number(this.$('mathNeuron').value);this.render()};
+  this.$('mathNeuron').onchange=()=>this.inspectNeuron(Number(this.$('mathNeuron').value));
+  this.$('mathFocusMode').onchange=()=>{this.pause();this.focusMode=this.$('mathFocusMode').value;if(this.focusMode==='manual'){this.manualNeuron??=this.neuron;this.neuron=this.manualNeuron;}this.render()};
   this.$('mathFeature').onchange=()=>{this.pause();this.feature=Number(this.$('mathFeature').value);this.render()};
   this.$('mathVariant').onchange=()=>{this.pause();this.variant=this.$('mathVariant').value;this.render()};
   this.$('mathPlay').onclick=()=>this.timer?this.pause():this.play();
@@ -37,8 +40,9 @@ export class MathTheatre {
   this.$('mathSpeed').onchange=()=>{if(this.timer){this.pause();this.play()}};
   this.$('mathEpoch').onchange=this.$('mathParameter').onchange=()=>{this.pause();this.render()};
   this.$('mathExport').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({schema:'drifttrust-math-trace-v1',scope:'Local numerical witness, not an independent attestation',capture:this.current},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='drifttrust-math-trace.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-  root.addEventListener('click',e=>{if(e.target.closest('summary'))this.pause();const n=e.target.closest('[data-neuron],[data-feature],[data-math-step],[data-variant]');if(!n)return;this.pause();
-   if(n.dataset.neuron!==undefined){this.neuron=Number(n.dataset.neuron);this.$('mathNeuron').value=this.neuron;this.render()}
+  root.addEventListener('click',e=>{if(e.target.closest('summary'))this.pause();const n=e.target.closest('[data-neuron],[data-contributor],[data-feature],[data-math-step],[data-variant]');if(!n)return;this.pause();
+   if(n.dataset.neuron!==undefined)this.inspectNeuron(Number(n.dataset.neuron));
+   if(n.dataset.contributor!==undefined)this.inspectNeuron(Number(n.dataset.contributor));
    if(n.dataset.feature!==undefined){this.feature=Number(n.dataset.feature);this.$('mathFeature').value=this.feature;this.render()}
    if(n.dataset.mathStep!==undefined)this.move(Number(n.dataset.mathStep));
    if(n.dataset.variant){this.pause();this.variant=n.dataset.variant;this.render()}
@@ -48,6 +52,7 @@ export class MathTheatre {
   this.render();
  }
  configure(meta){this.meta=meta;this.render()}
+ inspectNeuron(k){this.pause();this.focusMode='manual';this.manualNeuron=k;this.neuron=k;this.render()}
  lastStage(){return this.current?.kind==='candidate'?6:3}
  pause(){clearTimeout(this.timer);this.timer=null;this.root.classList.remove('is-playing');this.$('mathPlay').textContent='▶ Play'}
  play(){if(!this.current)return;if(this.stage>=this.lastStage()){this.stage=0;this.applyStage()}this.pause();this.root.classList.add('is-playing');this.$('mathPlay').textContent='Ⅱ Pause';this.render();
@@ -63,11 +68,14 @@ export class MathTheatre {
  candidate(attempt){const item=this.items.findLast(i=>i.record?.attempt===attempt);if(item){this.select(item.id);this.root.scrollIntoView({behavior:this.$('mathReduced').checked?'instant':'smooth',block:'start'});return true}return false}
  render(){
   const openDetails=[...this.root.querySelectorAll('details[open]')].map(d=>d.querySelector('summary').textContent);
-  const focused=document.activeElement,focusKey=['data-neuron','data-feature','data-math-step','data-variant'].find(a=>this.root.contains(focused)&&focused.hasAttribute(a));
+  const focused=document.activeElement,focusKey=['data-neuron','data-contributor','data-feature','data-math-step','data-variant'].find(a=>this.root.contains(focused)&&focused.hasAttribute(a));
   const focusValue=focusKey?focused.getAttribute(focusKey):null;
   const t=this.current,isCandidate=t?.kind==='candidate',v=t?(this.variant==='candidate'?t.candidate:this.variant==='active'?t.active:t.forward):null;
+  if(v&&this.focusMode==='auto')this.neuron=logitContributions(v).strongest;
+  this.$('mathNeuron').value=this.neuron;this.$('mathFocusMode').value=this.focusMode;
+  this.contributions(v);
   this.root.classList.toggle('motion-off',this.$('mathReduced').checked);this.root.dataset.phase=this.stage;this.root.dataset.captureKind=t?.kind??'empty';
-  for(const id of ['mathReplay','mathPlay','mathNext','mathPrevious','mathScrub','mathExport','mathFeature','mathNeuron','mathParameter'])this.$(id).disabled=!t;
+  for(const id of ['mathReplay','mathPlay','mathNext','mathPrevious','mathScrub','mathExport','mathFeature','mathNeuron','mathParameter','mathFocusMode'])this.$(id).disabled=!t;
   this.$('mathNext').disabled=!t||this.stage>=this.lastStage();this.$('mathPrevious').disabled=!t||this.stage===0;
   this.$('mathVariant').disabled=!isCandidate;this.$('mathVariant').value=this.variant;
   this.$('mathStages').innerHTML=stages.slice(0,this.lastStage()+1).map((s,i)=>`<button data-math-step="${i}" ${!t?'disabled':''} aria-current="${this.stage===i?'step':'false'}"><span>${String(i+1).padStart(2,'0')}</span>${s}</button>`).join('');
@@ -89,11 +97,23 @@ export class MathTheatre {
   for(const detail of this.root.querySelectorAll('details'))if(openDetails.includes(detail.querySelector('summary').textContent))detail.open=true;
   if(focusKey)this.root.querySelector(`[${focusKey}="${focusValue}"]`)?.focus({preventScroll:true});
  }
+ contributions(v){
+  this.$('mathContributions').hidden=!v;
+  if(!v){this.$('mathFocusMeaning').textContent='All 24 neurons participate. Automatic focus explains the largest absolute logit contribution. Manual inspection remains available after every run.';return}
+  const c=logitContributions(v),selected=this.neuron,largest=c.terms[c.strongest],context={before:'observed / before-update',candidate:'candidate diagnostic',active:'retained diagnostic'}[this.variant];
+  const tied=c.ties.length>1?` ${c.ties.length} neurons tie exactly; Automatic uses the lowest neuron number.`:'';
+  this.$('mathFocusMeaning').textContent=(this.focusMode==='auto'?`Automatic focus: H${selected+1} has the largest absolute contribution to this ${context} prediction’s pre-sigmoid total (${fmt(largest)}).`:`Manual inspection: H${selected+1} stays selected across playback, captures and model comparisons. H${c.strongest+1} has the largest absolute logit contribution for this ${context} prediction (${fmt(largest)}).`)+tied+' All 24 neurons still participate; selection only controls the explanation.';
+  const bar=value=>`<span class="contribution-track" aria-hidden="true"><i class="contribution-zero"></i><i class="contribution-fill ${value<0?'term-negative':value>0?'term-positive':'term-zero'}" style="left:${value<0?50-50*Math.abs(value)/c.extent:50}%;width:${50*Math.abs(value)/c.extent}%"></i></span><span class="contribution-value" title="${value}" data-value="${value}">${value>0?'+':''}${fmt(value)}</span>`;
+  this.$('mathContributionBars').innerHTML=c.terms.map((value,k)=>`<button class="contribution-row ${k===selected?'contribution-selected':''}" data-contributor="${k}" aria-pressed="${k===selected}" aria-label="Inspect H${k+1}, signed logit contribution ${value}${c.ties.includes(k)?', largest absolute contribution':''}"><span class="contribution-label">H${k+1}${c.ties.includes(k)?'<small>largest |term|</small>':''}</span>${bar(value)}</button>`).join('');
+  this.$('mathContributionBias').innerHTML=`<div class="contribution-row"><span class="contribution-label">Bias<small>separate term</small></span>${bar(c.bias)}</div>`;
+  this.$('mathContributionTotal').textContent=`All 24 terms ${fmt(c.sum)} + output bias ${fmt(c.bias)} = logit ${fmt(v.logit)} → sigmoid = ${fmt(v.p)}. Every bar shares a symmetric scale from −${fmt(c.extent)} to +${fmt(c.extent)}. Bias is not a hidden neuron and is excluded from Automatic selection. The selection uses this forward pass, not the separate SGD training row. Manual choice is kept in this tab until reload; switch back to Automatic to follow the largest term.`;
+ }
  drawNetwork(v){
   const selected=this.neuron,j=this.feature,ins=Array.from({length:12},(_,i)=>({x:180,y:67+i*26})),hs=Array.from({length:24},(_,k)=>({x:480+Math.floor(k/12)*86,y:67+(k%12)*26})),out={x:817,y:210};
   let s=`<defs><filter id="neuronGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3"/></filter><linearGradient id="planeGlow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4adfdb" stop-opacity=".08"/><stop offset="1" stop-color="#4adfdb" stop-opacity="0"/></linearGradient></defs><path class="network-plane" d="M120 32 L211 16 L235 366 L144 391 Z"/><path class="network-plane" d="M424 30 L619 15 L644 369 L449 396 Z"/><path class="network-plane" d="M778 112 L853 100 L871 306 L796 319 Z"/><text class="layer-label" x="125" y="408">12 INPUTS</text><text class="layer-label" x="440" y="408">24 TANH NEURONS</text><text class="layer-label" x="770" y="355">SIGMOID</text>`;
   for(let k=0;k<24;k++){const h=hs[k];for(let i=0;i<12;i++){const p=ins[i],weight=v?.model.w1[i][k]??0;s+=`<path aria-hidden="true" class="network-edge ${k===selected?'selected-edge':''} ${k===selected&&this.stage===1?'signal':''}" d="M${p.x} ${p.y} C310 ${p.y},365 ${h.y},${h.x} ${h.y}" stroke="${weight<0?'#af9dff':'#55ded8'}" stroke-width="${k===selected?1+Math.min(2,Math.abs(weight)):0.5}" opacity="${k===selected?.6:.055}"><title>Input ${i+1} → H${k+1}: weight ${v?weight:'not captured'}</title></path>`}
-   s+=`<path class="network-edge ${k===selected?'selected-edge':''} ${this.stage===2?'signal':''}" d="M${h.x} ${h.y} C685 ${h.y},733 210,817 210" stroke="${(v?.model.w2[k]??0)<0?'#af9dff':'#55ded8'}" stroke-width="${k===selected?2:0.7}" opacity="${k===selected?.8:.12}"><title>H${k+1} → output: weight ${v?.model.w2[k]??'not captured'}</title></path>`;
+   const term=v?.output_terms[k]??0,extent=v?Math.max(...v.output_terms.map(Math.abs)):0,magnitude=extent?Math.abs(term)/extent:0;
+   s+=`<path aria-hidden="true" class="network-edge output-edge ${this.stage===2?'signal':''}" data-output-neuron="${k}" data-contribution="${term}" d="M${h.x} ${h.y} C685 ${h.y},733 210,817 210" stroke="${term<0?'#af9dff':term>0?'#55ded8':'#91a7b0'}" stroke-width="${1+3*magnitude}" opacity="${v?.4+.4*magnitude:.12}"><title>H${k+1} → output: activation ${v?.hidden[k]??'not captured'} × weight ${v?.model.w2[k]??'not captured'} = logit contribution ${v?term:'not captured'}</title></path>`;
   }
   ins.forEach((p,i)=>{s+=`<g class="network-node" role="button" tabindex="0" aria-label="Inspect input ${i+1}: ${esc(featureGuide[i][0])}" data-feature="${i}"><title>${esc(featureGuide[i][0])}: raw ${v?.raw[i]??'—'}; transformed ${v?.x[i]??'—'}</title><text class="input-label" x="${p.x-25}" y="${p.y+4}" text-anchor="end">${['Duration','Forward pkts','Backward pkts','Packet rate','Down/up','SYN','RST','ACK','Payload μ','Payload σ','Fwd window','Bwd window'][i]}</text><circle cx="${p.x}" cy="${p.y}" r="${i===j?8:5}" fill="${(v?.x[i]??0)<0?'#af9dff':'#55ded8'}"/><circle class="node-ring" cx="${p.x}" cy="${p.y}" r="${i===j?13:9}"/></g>`});
   hs.forEach((p,k)=>{const a=v?.hidden[k]??0;s+=`<g class="network-node ${selected===k?'selected-node':''}" role="button" tabindex="0" aria-label="Inspect hidden neuron H${k+1}" data-neuron="${k}"><title>H${k+1}: activation ${v? a:'not captured'}</title><circle cx="${p.x}" cy="${p.y}" r="12" fill="${a<0?'#af9dff':'#55ded8'}" opacity="${v?.hidden? .12+.45*Math.abs(a):.12}" filter="url(#neuronGlow)"/><circle cx="${p.x}" cy="${p.y}" r="${k===selected?8:5}" fill="${a<0?'#af9dff':'#55ded8'}" opacity="${v?.hidden?.length?.35+.65*Math.abs(a):.35}"/><circle class="node-ring" cx="${p.x}" cy="${p.y}" r="11"/><text class="neuron-label" x="${p.x+15}" y="${p.y+4}">H${k+1}</text></g>`});

@@ -2,10 +2,20 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {newState,processBatch,predict,clone,digest} from '../runtime/engine.mjs';
-import {forwardTrace,parameterStep} from '../runtime/math-trace.mjs';
+import {forwardTrace,parameterStep,logitContributions} from '../runtime/math-trace.mjs';
 const b=JSON.parse(fs.readFileSync('assets/research/model.json'));
 const rows=JSON.parse(fs.readFileSync('assets/research/replay.json')).rows;
 const close=(a,c)=>assert.ok(Math.abs(a-c)<1e-12,`${a} differs from ${c}`);
+test('logit contribution ranking uses signed activation times weight and excludes the bias',()=>{
+ const examples=JSON.parse(fs.readFileSync('assets/research/examples.json'));
+ for(const [id,expected] of [[20635,15],[115485,9]]){
+  const t=forwardTrace(b,b.model,examples.find(r=>r.id===id).x),original=clone(t),c=logitContributions(t);
+  assert.equal(c.strongest,expected);assert.deepEqual(c.terms,t.output_terms);close(c.sum+c.bias,t.logit);assert.deepEqual(t,original);
+ }
+ const t={hidden:[1,-1,0],model:{w2:[2,2,9],b2:100}},c=logitContributions(t);
+ assert.equal(c.strongest,0);assert.deepEqual(c.ties,[0,1]);assert.deepEqual(c.terms,[2,-2,0]);assert.equal(c.extent,100);
+ const zero=logitContributions({hidden:[0,0],model:{w2:[0,0],b2:0}});assert.equal(zero.extent,1);assert.deepEqual(zero.ties,[0,1]);
+});
 test('forward witnesses reconstruct every neuron and the published prediction without mutation',()=>{
  const model=clone(b.model);
  for(const row of [rows[0],rows[700],{x:Array(12).fill(1e15)}]){
