@@ -28,6 +28,8 @@ AJRs are canonical-JSON SHA-256 linked records. Verification checks content and 
 
 ## Operating the lab
 
+The dark animated-mathematics panel reads actual worker captures. **Animate selected flow** performs ordinary inference on the input form; Play, Replay and the animation timeline only inspect that completed calculation. Stream operations retain up to eight candidate captures and the last streamed probe in IndexedDB. Each candidate contains three sampled SGD steps (first row of each pass) and complete before/candidate/retained weights. Single-flow animation captures remain in tab memory. **[Every animation control, equation and code path](MATH_ANIMATIONS.md)** is documented separately and summarized in the fieldbook.
+
 Start/reset after choosing a policy. Single flow computes scores and all twelve feature perturbations without training. Dataset replay processes 128 flows per click, internally in batches of 32, with labels revealed after each batch's predictions. Run remaining repeats this; Pause stops after the current request finishes. CSV stream accepts up to 256 rows and 2 MB, exact feature names, optional label 0/1/blank. An unlabelled-only batch cannot initiate learning.
 
 The dynamic explanations cover every feature/unit/value, actual score calculation, observed flow versus candidate counters, chart axes and selected points, detector conditions, all four candidate checks, raw audit fields, fingerprints, filters, verification and exports. The guide includes a complete control glossary.
@@ -52,6 +54,8 @@ runtime/worker.mjs, db/schema.ts and drizzle/ retain the earlier HTTP/D1 impleme
 The earlier assets/research/deployment_verification.json is historical server verification, not evidence of the new browser migration. Use browser verification and actual current page behavior for the latter.
 
 ## Research scope
+
+The animation adds optional trace collection to the shared engine without changing its update arithmetic, candidate policy or checkpoint. Traced/untraced replays are tested for identical predictions and candidate weights. Source bytes and measured execution overhead do change; archived paper manifests and latency results describe their original experiment, not this instrumented UI. Numerical trace exports supplement AJRs and are not independently attested evidence.
 
 Initial weights are predetermined seed 11. The online replay is a compact 1280-flow subset, not the full 7972-flow shifted paper evaluation. Predictions precede feedback; scores are uncalibrated. Compatible traffic collection, enterprise identity integration, trusted delayed feedback and policy enforcement are still separate work. A working browser research lab does not establish guaranteed security, ISO compliance or reviewer acceptance.
 

@@ -56,12 +56,14 @@ function anchorMetrics(bundle,model) {
     attack_miss:avg(ps.flatMap((p,i)=>rows[i].y===1?[Number(p<.5)]:[])),
     mean_trust:1-avg(ps)};
 }
-function fit(bundle,m,rows) {
+function fit(bundle,m,rows,trace) {
   const c=bundle.config, processed=rows.map(r=>({x:transform(bundle,r.x),y:r.y}));
   const losses=[];
   for(let e=0;e<c.update_epochs;e++){
     let loss=0;
-    for(const {x,y} of processed){
+    for(const [rowIndex,{x,y}] of processed.entries()){
+      const capture=trace&&rowIndex===0;
+      const before=capture?clone(m):null;
       const {p,hidden}=forward(m,x), error=p-y;
       loss+=-y*Math.log(clamp(p,1e-9,1-1e-9))-(1-y)*Math.log(clamp(1-p,1e-9,1-1e-9));
       const dh=hidden.map((h,k)=>error*m.w2[k]*(1-h*h));
@@ -71,6 +73,9 @@ function fit(bundle,m,rows) {
         for(let j=0;j<x.length;j++)m.w1[j][k]-=c.update_lr*(dh[k]*x[j]+.0001*m.w1[j][k]);
       }
       m.b2-=c.update_lr*error;
+      if(capture)trace.steps.push({epoch:e+1,row_index:rowIndex,record_id:rows[rowIndex].id,
+        raw:clone(rows[rowIndex].x),x:clone(x),y,p,hidden:clone(hidden),error,dh:clone(dh),
+        learning_rate:c.update_lr,l2:0.0001,before,after:clone(m)});
     }
     losses.push(loss/processed.length);
   }
@@ -102,7 +107,8 @@ export async function processBatch(bundle,state,rows,options={}) {
   if(!triggered||state.seen-state.last_attempt<c.min_update_gap||state.recent.length<64||!evidence.length)return {scores,event:null,signals:{short,long,shift,triggered}};
   const t=performance.now(),candidate=clone(state.model);
   const training=state.mode==='no_replay'?state.recent:[...state.recent,...state.replay];
-  const losses=fit(bundle,candidate,training);
+  if(options.trace){options.trace.steps=[];options.trace.before=clone(state.model);options.trace.training_size=training.length;}
+  const losses=fit(bundle,candidate,training,options.trace);
   state.attempts++;state.last_attempt=state.seen;
   const checkGovernance=state.mode!=='ungoverned';
   const pre=checkGovernance?anchorMetrics(bundle,state.model):null, post=checkGovernance?anchorMetrics(bundle,candidate):null;
@@ -118,6 +124,7 @@ export async function processBatch(bundle,state,rows,options={}) {
   const oldHash=checkGovernance?await digest(state.model):null;
   const candidateHash=checkGovernance?await digest(candidate):null;
   if(accepted){state.model=candidate;state.accepted++;}else state.rejected++;
+  if(options.trace){options.trace.candidate=clone(candidate);options.trace.active=clone(state.model);}
   state.replay=[...state.replay,...state.recent].slice(-c.replay_size);
   state.errors=[];
   state.baseline=normalise(importance(bundle,state.model,state.recent));

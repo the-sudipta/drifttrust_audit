@@ -10,7 +10,9 @@ The public-data backend runs actual inference, incremental updates, explanation-
 
 The primary lab is now hosted on GitHub Pages. It performs actual trained inference, incremental SGD, drift checks and candidate governance in the browser. `runtime/worker.mjs` remains an optional HTTP/D1 server implementation; the current UI uses `runtime/browser-client.mjs` and `runtime/browser-worker.mjs` instead. Local records are browser-controlled evidence, not independently trusted server logs.
 
-[Full interactive code guide](guide.html) explains nine modules and every interface control. The lab explains all twelve features, exact score arithmetic, chart points, detector eligibility and each audit check. **Accepted/rejected counts refer to proposed model versions, not users or flows.** On the compact gated replay, 7 candidates produce 4 activations and 3 discards.
+[Full interactive code guide](guide.html) explains nine modules and includes the new animation-control supplement. The lab explains all twelve features, exact score arithmetic, chart points, detector eligibility and each audit check. **Accepted/rejected counts refer to proposed model versions, not users or flows.** On the compact gated replay, 7 candidates produce 4 activations and 3 discards.
+
+**[Animated model mathematics](https://the-sudipta.github.io/drifttrust_audit/lab.html#mathTheatre)** shows the actual 12–24–1 network, boxed forward equations, captured SGD steps and candidate decisions. Start a session, then press **Animate selected flow**. Use Dataset replay to capture learning; inspect Candidate #7 in gated mode to see why its weights were discarded. Playback reads captured values and never retrains. **[Complete animation and code-flow guide](assets/research/MATH_ANIMATIONS.md)** covers every new control, equation, sampling rule and export.
 
 Local GitHub Pages preview:
 
@@ -99,6 +101,9 @@ node scripts/verify-audit.mjs downloaded-session-audit.json
 |---|---|
 | `research/prepare.py` | Dataset download, audit, split, fitting, model export |
 | `runtime/engine.mjs` | Shared inference, drift, learning, ECI and policy engine |
+| `runtime/math-trace.mjs` | Read-only exact forward arithmetic and captured SGD parameter calculations |
+| `runtime/browser-worker.mjs` | Browser operations, actual computation, revision-checked local state and bounded trace retention |
+| `math-theatre.mjs`, `math-theatre.css` | Interactive network, boxed equations, playback, model comparison and numerical trace export |
 | `research/run.mjs` | Actual repeated experiments and ablations |
 | `research/report.py` | Metrics, statistical summaries and publication figures |
 | `runtime/worker.mjs` | Server API, validated inputs, isolated sessions, audit persistence |
@@ -119,6 +124,8 @@ The original Python prototype remains available through `python main.py` and its
 MIT license for code. RT-IoT2022 data and derived example rows retain CC BY 4.0 attribution. See LICENSE and CITATION.cff.
 
 ## Browser verification
+
+`tests/math-trace.test.mjs` proves tracing preserves the complete compact replay in both policies and independently checks all 337 parameters in each captured SGD step. `tests/browser-math.cjs` exercises animation controls, keyboard focus, real arithmetic, all parameter types, three-step playback, rejection/activation, local export/persistence, reset, reduced motion and responsive layouts. Run it against a local preview or the public base URL, using the runtime overrides below.
 
 `tests/browser-pages.cjs` exercises the GitHub Pages UI using Playwright: both complete replays, actual example predictions, pause, CSV feedback/no-feedback, rejection arithmetic, audit export/verification, persistence, browser-profile isolation and responsive overflow. Provide an installed `playwright` module (or its path in `PLAYWRIGHT_MODULE`), and optionally a browser executable in `BROWSER_EXECUTABLE`.
 

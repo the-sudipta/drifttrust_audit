@@ -1,5 +1,6 @@
 /** GitHub Pages runtime: actual shared engine in a Web Worker, state in IndexedDB. */
 import {newState,processBatch,predict,explain,transform,digest,ENGINE_VERSION} from './engine.mjs';
+import {forwardTrace} from './math-trace.mjs';
 const json=async name=>{const r=await fetch(new URL(`../assets/research/${name}.json`,import.meta.url));if(!r.ok)throw Error(`Could not load ${name}. Reload the page when online.`);return r.json()};
 const ready=Promise.all([json('model'),json('replay'),json('examples')]);
 const TTL=24*60*60*1000;
@@ -16,11 +17,14 @@ async function handle(path,body){const [bundle,replay,examples]=await ready;
  if(path==='/api/session'&&body!==undefined){if(!['monitor_only','governed'].includes(body.mode))fail(400,'Choose audit-only or gated policy.');const s={id:crypto.randomUUID(),revision:0,expires:Date.now()+TTL,state:newState(bundle,body.mode),audit:[],trace:[],active_hash:await digest(bundle.model)};s.state.replay_cursor=0;await persist(s);return summary(s)}
  const s=await active();
  if(path==='/api/session')return summary(s);
+ if(path==='/api/visuals')return {items:[...(s.visual_history??[]),...(s.last_visual?[s.last_visual]:[])]};
  if(path==='/api/audit')return {schema_version:'1.0',engine_version:ENGINE_VERSION,execution:'browser',revision:s.revision,chain_head:s.state.chain_head,records:s.audit};
  if(path==='/api/infer'){
   try{transform(bundle,body.x)}catch(e){fail(400,e.message)}
   const p=predict(bundle,s.state.model,body.x),result={attack_probability:p,trust_score:1-p,explanation:explain(bundle,s.state.model,body.x).sort((a,b)=>Math.abs(b.contribution)-Math.abs(a.contribution)),model_sha256:await digest(s.state.model),revision:s.revision,input:body.x,outside_training_range:body.x.map((v,j)=>v<bundle.bounds[j].min||v>bundle.bounds[j].max?bundle.features[j]:null).filter(Boolean)};
   // Inference remains read-only; reload restores the last saved stream prediction.
+  result.visual={id:crypto.randomUUID(),kind:'inference',title:'Single flow · current weights',captured_at:new Date().toISOString(),
+   model_sha256:result.model_sha256,forward:forwardTrace(bundle,s.state.model,body.x)};
   return result;
  }
  if(!['/api/replay','/api/stream'].includes(path))fail(404,'Unknown browser operation.');
@@ -36,18 +40,27 @@ async function handle(path,body){const [bundle,replay,examples]=await ready;
  }
  if(s.state.seen+rows.length>20000)fail(429,'This session reached its 20,000-flow limit. Export the audit and start another session.');
  for(const r of rows){try{transform(bundle,r.x)}catch(e){fail(400,e.message)}if(r.y!==null&&r.y!==0&&r.y!==1)fail(400,'Labels must be 0 benign, 1 attack, or blank unknown.')}
- const predictions=[],events=[],diagnostics=[];
+ const predictions=[],events=[],diagnostics=[],visuals=[];
  for(let i=0;i<rows.length;i+=bundle.config.batch_size){
   const batch=rows.slice(i,i+bundle.config.batch_size),start=s.state.seen,currentLabels=batch.filter(r=>r.y===0||r.y===1).length;
   const errorLabels=Math.min(bundle.config.error_long,s.state.errors.length+currentLabels),gap=start+batch.length-s.state.last_attempt;
-  const {scores,event,signals}=await processBatch(bundle,s.state,batch,{feedbackSource:path==='/api/replay'?'UCI held-out labels revealed after batch prediction':'Visitor-asserted labels; not independently verified'});
+  const learning={},probe=batch.at(-1),observed=forwardTrace(bundle,s.state.model,probe.x);
+  const {scores,event,signals}=await processBatch(bundle,s.state,batch,{trace:learning,feedbackSource:path==='/api/replay'?'UCI held-out labels revealed after batch prediction':'Visitor-asserted labels; not independently verified'});
+  const position=start+batch.length;
+  if(event){const visual={id:`${s.id}-candidate-${event.attempt}`,kind:'candidate',mode:s.state.mode,title:`Candidate #${event.attempt} · flow ${position} · ${event.status}`,
+   captured_at:event.timestamp_utc,source_row:probe.id,position,label:probe.y,record:event,steps:learning.steps,training_size:learning.training_size,
+   forward:observed,candidate:forwardTrace(bundle,learning.candidate,probe.x),active:forwardTrace(bundle,learning.active,probe.x),config:bundle.config};
+   visuals.push(visual);s.visual_history=[...(s.visual_history??[]),visual].slice(-8);
+  }
+  s.last_visual={id:`${s.id}-flow-${position}`,kind:'stream',title:`Observed flow ${position} · source ${probe.id}`,captured_at:new Date().toISOString(),
+   position,source_row:probe.id,label:probe.y,model_sha256:event?.model_before_sha256??await digest(observed.model),forward:observed};
   scores.forEach((p,j)=>predictions.push({position:start+j+1,source_row:batch[j].id,attack_probability:p,trust_score:1-p,label:batch[j].y,family:batch[j].family}));
   if(event)events.push(event);
   diagnostics.push({position:s.state.seen,batch_size:batch.length,current_labels:currentLabels,error_history_labels:errorLabels,recent_labels:s.state.recent.length,flows_since_previous_attempt:gap,signals:signals??event?.signals,attempted:!!event});
  }
  if(path==='/api/replay')s.state.replay_cursor+=rows.length;
  s.audit.push(...events);s.trace=[...(s.trace??[]),...predictions].slice(-512);s.active_hash=await digest(s.state.model);s.last_diagnostics=diagnostics.at(-1);s.revision++;s.last_op=body.request_id;
- const response={...summary(s),predictions,events,diagnostics};s.last_reply=response;
+ const response={...summary(s),predictions,events,diagnostics,visuals:[s.last_visual,...visuals]};s.last_reply=response;
  await persist(s,expected);return response;
 }
 // Serialize requests within a tab; the IndexedDB revision transaction handles other tabs.

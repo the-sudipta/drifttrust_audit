@@ -2,6 +2,8 @@
 
 ## Scope and provenance
 
+Deployment update (10 September 2026): the GitHub Pages lab now includes [animated numerical traces](MATH_ANIMATIONS.md) from actual inference and sampled SGD steps. The experiment, figures and archived execution manifest below remain unchanged. Tests verify tracing preserves replay predictions, candidate weights and policy outcomes; animation capture adds overhead and changes source bytes, so current UI timing is not the original experiment's latency.
+
 This is an executed public-data research experiment and a working network-risk demonstration. It is not an enterprise access-control field trial, ISO certification, or evidence that publication acceptance is assured.
 
 Dataset: B. S. Sharmila and Rohini Nagapadma, RT-IoT2022, UCI Machine Learning Repository, DOI https://doi.org/10.24432/C5P338, CC BY 4.0. Official source: https://archive.ics.uci.edu/dataset/942/rt-iot2022. Captured IoT testbed traffic includes generated attacks. The archived CSV, rather than the inconsistent class-count prose on the source page, is the numerical source of truth. See dataset.json for checksums and observed counts.
